@@ -6,39 +6,43 @@
 // =========================================================================
 
 :root {
+  // ---- Yuzeyler Discourse renk semasina bagli ----
+  // Ilk degerler acik sema yedekleridir; koyu sema etkinse Discourse
+  // degiskenleri otomatik olarak koyu karşılıklarıyla devreye girer.
   // ---- Metin renkleri ----
-  --sk-ink: #17253F;        // ana metin: koyu lacivert
-  --sk-ink-soft: #4C5C77;   // ikincil metin
-  --sk-ink-faint: #76839B;  // yardımcı metin
+  --sk-ink: var(--primary, #17253F);
+  --sk-ink-soft: var(--primary-medium, #4C5C77);
+  --sk-ink-faint: var(--primary-low-mid, #76839B);
 
   // ---- Yüzeyler ----
-  --sk-bg: #F4F7FB;         // sayfa zemini
-  --sk-card: #FFFFFF;       // kart ve panel yüzeyi
-  --sk-line: #E2E9F2;       // kenarlık
-  --sk-line-strong: #C9D5E5;
+  --sk-bg: var(--primary-very-low, #F4F7FB);
+  --sk-card: var(--secondary, #FFFFFF);
+  --sk-line: var(--primary-low, #E2E9F2);
+  --sk-line-strong: var(--primary-med-or-secondary-med, #C9D5E5);
 
-  // ---- Marka ----
+  // ---- Marka (sabit kimlik) ----
   --sk-brand: #1D5BD6;
   --sk-brand-dark: #1647A8;
-  --sk-brand-tint: #EAF1FC;
-  --sk-focus: #7FA6EE;      // klavye odak halkası
+  --sk-brand-tint: var(--tertiary-very-low, #EAF1FC);
+  --sk-brand-line: var(--tertiary-low, #BCD0F0);
+  --sk-focus: #7FA6EE;
 
   // ---- Durum renkleri ----
-  --sk-green: #157A45;      // çözüldü / en iyi cevap
-  --sk-green-tint: #E7F6EC;
-  --sk-green-line: #BFE3CC;
-  --sk-amber: #96590A;      // cevap bekliyor (metin)
-  --sk-amber-tint: #FDF2DD;
+  --sk-green: #157A45;
+  --sk-green-tint: var(--success-very-low, #E7F6EC);
+  --sk-green-line: var(--success-low, #BFE3CC);
+  --sk-amber: #96590A;
+  --sk-amber-tint: var(--highlight-very-low, #FDF2DD);
 
   // ---- Biçim ----
-  --sk-radius: 14px;        // kart ve panel yarıçapı
-  --sk-radius-sm: 9px;      // buton ve çip yarıçapı
+  --sk-radius: 14px;
+  --sk-radius-sm: 9px;
   --sk-shadow: 0 1px 2px rgba(23, 37, 63, 0.05), 0 8px 22px -10px rgba(23, 37, 63, 0.10);
   --sk-shadow-hover: 0 2px 4px rgba(23, 37, 63, 0.06), 0 14px 30px -12px rgba(29, 91, 214, 0.18);
 
   // ---- Ders (kategori) renkleri ----
-  // topic-list.scss içinde kategori slug'ına bağlanır; kendi slug'larınıza
-  // göre düzenlemek için README > "Kategori renk eşlemesi" bölümüne bakın.
+  // topic-list.scss icinde kategori slug'ina baglanir; kendi slug'larinizi
+  // gormek icin README > "Kategori renk eslemesi" bolumune bakin.
   --sk-d-matematik: #1D5BD6;
   --sk-d-fizik: #6D3AD6;
   --sk-d-kimya: #0E8F80;
@@ -83,7 +87,7 @@ body {
 
 // ---- Üst çubuk ----
 .d-header {
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: var(--header_background, #FFFFFF);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--sk-line);
   box-shadow: none;
@@ -122,6 +126,10 @@ textarea:focus-visible {
   font-size: 13px;
   font-weight: 700;
   padding: 3px 10px;
+
+  // Kategori rengini mürekkebe dogru koyulastirarak en az 4.5:1 kontrast hedefi
+  // (T4). color-mix desteklemeyen tarayicilar dogrudan kategori rengini gorur.
+  color: color-mix(in srgb, var(--category-badge-color, #1D5BD6) 72%, var(--sk-ink));
 }
 
 // ---- Etiket (tag) çipleri ----

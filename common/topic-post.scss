@@ -2,6 +2,7 @@
 // Sorumatik Tema — Soru (konu) sayfası
 // "Önce çözüm" ilkesi: En İyi Cevap görsel olarak en güçlü bloktur.
 // discourse-solved eklentisinin kurulu olması önerilir.
+// Ayar: sk_adim_stili (adım rozetleri aç/kapa, K1)
 // =========================================================================
 
 // ---- Konu haritası (cevap, görüntülenme, kullanıcı özeti) ----
@@ -14,42 +15,82 @@
 
 // ---- En İyi Cevap: yeşil sol şerit + beyaz kart ----
 // discourse-solved, kabul edilen cevabın article'ına accepted-answer sınıfı ekler.
-article.accepted-answer .topic-body {
+article.accepted-answer .topic-body,
+.topic-post.accepted-answer .topic-body {
   background: var(--sk-card);
   box-shadow: inset 4px 0 0 var(--sk-green);
 }
 
+// ---- Çözüm özeti kutusu ve başlık rozeti (K4) ----
+// Eklentinin konu başına eklediği çözüm özeti bloğu kart diline bağlanır.
+// Farklı sürümlerde sınıf adı değişebildiği için adaylar birlikte hedeflenir.
+:is(.solved-panel, .solved-quote, .quote.solved, .solved.title) {
+  background: var(--sk-card);
+  border: 1.5px solid var(--sk-green-line);
+  border-left: 4px solid var(--sk-green);
+  border-radius: var(--sk-radius);
+}
+
+.topic-status .solved {
+  color: var(--sk-green);
+}
+
 // ---- Adım adım çözüm: sıralı listeler numaralı adım bileşenine dönüşür ----
-// Cevap yazarken numaralı liste kullanıldığında otomatik uygulanır.
-.cooked ol {
-  counter-reset: sk-adim;
-  list-style: none;
-  margin: 16px 0;
-  padding-left: 0;
-}
+// Cevap yazarken numaralı liste kullanıldığında otomatik uygulanır (K1).
+@if get-setting("sk_adim_stili") {
 
-.cooked ol > li {
-  counter-increment: sk-adim;
-  margin-bottom: 12px;
-  padding-left: 40px;
-  position: relative;
-}
+  .cooked ol {
+    counter-reset: sk-adim;
+    list-style: none;
+    margin: 16px 0;
+    padding-left: 0;
+  }
 
-.cooked ol > li::before {
-  align-items: center;
-  background: var(--sk-brand-tint);
-  border-radius: 8px;
-  color: var(--sk-brand);
-  content: counter(sk-adim);
-  display: inline-flex;
-  font-size: 13.5px;
-  font-weight: 700;
-  height: 26px;
-  justify-content: center;
-  left: 0;
-  position: absolute;
-  top: 1px;
-  width: 26px;
+  .cooked ol > li {
+    counter-increment: sk-adim;
+    margin-bottom: 12px;
+    padding-left: 40px;
+    position: relative;
+  }
+
+  .cooked ol > li::before {
+    align-items: center;
+    background: var(--sk-brand-tint);
+    border-radius: 8px;
+    color: var(--sk-brand);
+    content: counter(sk-adim);
+    display: inline-flex;
+    font-size: 13.5px;
+    font-weight: 700;
+    height: 26px;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 1px;
+    width: 26px;
+  }
+
+  // İç içe listeler: klasik numaraya döner, rozet basılmaz (K3)
+  .cooked ol ol,
+  .cooked li > ol {
+    counter-reset: sk-ic-adim;
+    list-style: decimal;
+    margin: 8px 0;
+    padding-left: 28px;
+  }
+
+  .cooked ol ol > li,
+  .cooked li > ol > li {
+    counter-increment: sk-ic-adim;
+    list-style: decimal;
+    margin-bottom: 6px;
+    padding-left: 0;
+  }
+
+  .cooked ol ol > li::before,
+  .cooked li > ol > li::before {
+    content: none;
+  }
 }
 
 // ---- Formül blokları (discourse-math / MathJax çıktıları) ----

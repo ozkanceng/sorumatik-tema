@@ -1,6 +1,7 @@
 // =========================================================================
 // Sorumatik Tema — Mobil ince ayarları (≤700px)
 // Plan 5.3: tek kolon, sıkı boşluk, ekrana daha çok soru
+// Ayar: sk_mobil_ozet (telefonda soru özeti göster/gizle, K1)
 // =========================================================================
 
 .topic-list-body {
@@ -11,13 +12,15 @@
 .topic-list-item {
   padding: 14px 14px 8px;
 
-  // Telefonda özet gizlenir: başlık + durum yeterli karar verir.
-  // Görmek isterseniz bu bloğu silin.
-  .topic-excerpt {
-    display: none;
-  }
-
   .main-link .title {
     font-size: 16px;
+  }
+}
+
+// Öntanımlı olarak özet gizlenir: başlık + durum yeterli karar verir.
+// Yönetim panelinden sk_mobil_ozet açılırsa özet gösterilir.
+@if not get-setting("sk_mobil_ozet") {
+  .topic-list-item .topic-excerpt {
+    display: none;
   }
 }

@@ -4,197 +4,226 @@
 //   - Masaüstü (1100px+): 3 kolon
 //   - Tablet (701–1099px): 2 kolon
 //   - Mobil (≤700px): 1 kolon (mobile.scss)
-// Kolon sayısı ekran genişliğine göre otomatik hesaplanır; ek kırılım kodu gerekmez.
+// Seçiciler etiket değil sınıf adlarına bağlıdır (K2): Discourse listeyi
+// div tabanlı işaretlemeye taşırsa bileşim sürüm değişikliğine dayanıklı kalır.
+// Ayarlar: sk_grid_acik (yönetim panelinden kapatılabilir, K1)
 // =========================================================================
 
-// Tablo iskeletini blok akışına çevir
-.topic-list {
-  border: 0;
-  display: block;
+@if get-setting("sk_grid_acik") {
 
-  // Kolon başlıkları kart görünümünde gizlenir.
-  // Sıralama hâlâ /latest?order=created gibi adreslerle çalışır.
-  thead {
-    display: none;
-  }
-}
-
-// Kart ızgarası
-.topic-list-body {
-  display: grid;
-  gap: 18px;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  padding: 4px 0 24px;
-}
-
-// ---- Kart ----
-.topic-list-item {
-  background: var(--sk-card);
-  border: 1.5px solid var(--sk-line);
-  border-radius: var(--sk-radius);
-  box-shadow: var(--sk-shadow);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding: 16px 16px 10px;
-  position: relative;
-  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
-
-  // Sol kenarda ders rengi şeridi (slug eşlemesi aşağıda)
-  &::before {
-    background: var(--sk-brand);
-    bottom: 0;
-    content: "";
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 4px;
-  }
-
-  &:hover {
-    border-color: #BCD0F0;
-    box-shadow: var(--sk-shadow-hover);
-    transform: translateY(-3px);
-  }
-
-  // Tablo hücrelerini düz akışa çevir
-  td {
-    border-top: 0;
+  // Tablo iskeletini blok akışına çevir
+  .topic-list {
+    border: 0;
     display: block;
+  }
+
+  // Kolon başlıkları kart görünümünde gizlenir ama DOM'da kalır (E1):
+  // görsel gizleme deseni sayesinde ekran okuyucu kolon bağlamını okur.
+  // Sıralama hâlâ /latest?order=created gibi adreslerle çalışır.
+  .topic-list thead {
+    border: 0;
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
     padding: 0;
-  }
-}
-
-// ---- Kart içi düzen (sıralama: başlık -> cevap -> avatarlar -> zaman) ----
-.topic-list-item {
-  .main-link {
-    order: 1;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
   }
 
-  // Cevap sayısı satırı: kart dibine itilir, üstte ince ayraç taşır
-  td.posts-map {
-    border-top: 1px solid var(--sk-line);
-    color: var(--sk-ink-faint);
-    font-size: 13.5px;
-    font-weight: 600;
-    margin-top: auto;
-    order: 2;
-    padding-top: 12px;
+  // ---- Kart ızgarası ----
+  .topic-list-body {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    padding: 4px 0 24px;
   }
 
-  // Cevaplayanların avatarları
-  td.posters {
-    align-items: center;
-    display: flex;
-    gap: 4px;
-    order: 3;
-    padding-top: 8px;
+  // ---- Kart ----
+  // Izgara alanları: üstte başlık/özet, altta tek meta satırı (T1):
+  // [cevap sayısı | boşluk | avatarlar | zaman]
+  .topic-list-item {
+    background: var(--sk-card);
+    border: 1.5px solid var(--sk-line);
+    border-radius: var(--sk-radius);
+    box-shadow: var(--sk-shadow);
+    display: grid;
+    gap: 6px 0;
+    grid-template-areas:
+      "main main main"
+      "posts posters age";
+    grid-template-columns: 1fr auto auto;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
+    padding: 16px 16px 10px;
+    position: relative;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+
+    // Sol kenarda ders rengi şeridi (slug eşlemesi aşağıda)
+    &::before {
+      background: var(--sk-brand);
+      bottom: 0;
+      content: "";
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 4px;
+    }
+
+    // Alt satırın tamamında ince ayraç: üç hücreye de üst kenarlık verilir
+    > * {
+      border-top: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    &:hover {
+      border-color: var(--sk-brand-line);
+      box-shadow: var(--sk-shadow-hover);
+    }
   }
 
-  // Son etkinlik zamanı
-  td.age {
-    color: var(--sk-ink-faint);
-    font-size: 13px;
-    order: 4;
-    padding: 4px 0 2px;
+  // Hareketli yükselme yalnızca ayar açıksa (K1) — çizgi ve gölge her zaman
+  @if get-setting("sk_kart_animasyon") {
+    .topic-list-item:hover {
+      transform: translateY(-3px);
+    }
   }
 
-  // Kart görünümünde gereksiz kolonlar gizlenir
-  td.views,
-  td.likes {
-    display: none;
+  // ---- Kart içi düzen (sınıf tabanlı seçiciler, K2) ----
+  .topic-list-item {
+    .main-link {
+      border-bottom: 0;
+      display: block;
+      grid-area: main;
+    }
+
+    .posts-map {
+      align-items: center;
+      border-top: 1px solid var(--sk-line);
+      color: var(--sk-ink-faint);
+      display: flex;
+      font-size: 13.5px;
+      font-weight: 600;
+      gap: 5px;
+      grid-area: posts;
+      padding-right: 12px;
+      padding-top: 12px;
+    }
+
+    .posters {
+      align-items: center;
+      border-top: 1px solid var(--sk-line);
+      display: flex;
+      gap: 4px;
+      grid-area: posters;
+      justify-content: flex-end;
+      padding-left: 12px;
+      padding-right: 12px;
+      padding-top: 12px;
+    }
+
+    .age {
+      border-top: 1px solid var(--sk-line);
+      color: var(--sk-ink-faint);
+      font-size: 13px;
+      grid-area: age;
+      padding-left: 12px;
+      padding-top: 12px;
+      white-space: nowrap;
+    }
+
+    // Kart görünümünde gereksiz kolonlar gizlenir
+    .views,
+    .likes {
+      display: none;
+    }
   }
-}
 
-// Avatar boyutu (26px yığın)
-.topic-list .posters .avatar {
-  border-radius: 50%;
-  height: 26px;
-  width: 26px;
-}
+  // Avatar boyutu (26px yığın)
+  .topic-list .posters .avatar {
+    border-radius: 50%;
+    height: 26px;
+    width: 26px;
+  }
 
-// ---- Başlık ----
-.topic-list .main-link .title,
-.topic-list .main-link .raw-topic-link {
-  color: var(--sk-ink);
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -0.2px;
-  line-height: 1.38;
-  text-decoration: none;
-
-  &:hover {
-    color: var(--sk-brand);
+  // ---- Başlık ----
+  .topic-list .main-link .title,
+  .topic-list .main-link .raw-topic-link {
+    color: var(--sk-ink);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    line-height: 1.38;
     text-decoration: none;
+
+    &:hover {
+      color: var(--sk-brand);
+      text-decoration: none;
+    }
   }
-}
 
-// Okunmuş konularda hafif kısma
-.topic-list-item.visited .main-link .title {
-  color: var(--sk-ink-soft);
-}
+  // Okunmuş konularda hafif kısma
+  .topic-list-item.visited .main-link .title {
+    color: var(--sk-ink-soft);
+  }
 
-// ---- Soru özeti: en fazla 2 satır ----
-.topic-list .topic-excerpt {
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  color: var(--sk-ink-soft);
-  display: -webkit-box;
-  font-size: 14.5px;
-  line-height: 1.55;
-  line-clamp: 2;
-  margin-top: 6px;
-  overflow: hidden;
-}
+  // ---- Soru özeti: en fazla 2 satır ----
+  .topic-list .topic-excerpt {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    color: var(--sk-ink-soft);
+    display: -webkit-box;
+    font-size: 14.5px;
+    line-height: 1.55;
+    line-clamp: 2;
+    margin-top: 6px;
+    overflow: hidden;
+  }
 
-// ---- Ders renk şeridi eşlemesi ----
-// Discourse her konu satırına category-<slug> sınıfı ekler.
-// Kategori slug'larınız farklıysa aşağıdaki listeyi güncelleyin
-// (yönetim > kategoriler > slug değerleri).
-.category-matematik.topic-list-item::before,
-.category-matematik::before {
-  background: var(--sk-d-matematik);
-}
+  // ---- Ders renk şeridi eşlemesi ----
+  // Discourse her konu satırına category-<slug> sınıfı ekler.
+  // Kategori slug'larınız farklıysa aşağıdaki listeyi güncelleyin
+  // (yönetim > kategoriler > slug değerleri); Sorumatik Bileşen kuruluysa
+  // bu eşlemeyi yönetim panelinden yapabilirsiniz.
+  .category-matematik.topic-list-item::before {
+    background: var(--sk-d-matematik);
+  }
 
-.category-fizik.topic-list-item::before,
-.category-fizik::before {
-  background: var(--sk-d-fizik);
-}
+  .category-fizik.topic-list-item::before {
+    background: var(--sk-d-fizik);
+  }
 
-.category-kimya.topic-list-item::before,
-.category-kimya::before {
-  background: var(--sk-d-kimya);
-}
+  .category-kimya.topic-list-item::before {
+    background: var(--sk-d-kimya);
+  }
 
-.category-biyoloji.topic-list-item::before,
-.category-biyoloji::before {
-  background: var(--sk-d-biyoloji);
-}
+  .category-biyoloji.topic-list-item::before {
+    background: var(--sk-d-biyoloji);
+  }
 
-.category-turkce.topic-list-item::before,
-.category-turkce::before {
-  background: var(--sk-d-turkce);
-}
+  .category-turkce.topic-list-item::before {
+    background: var(--sk-d-turkce);
+  }
 
-.category-tarih.topic-list-item::before,
-.category-tarih::before {
-  background: var(--sk-d-tarih);
-}
+  .category-tarih.topic-list-item::before {
+    background: var(--sk-d-tarih);
+  }
 
-.category-cografya.topic-list-item::before,
-.category-cografya::before {
-  background: var(--sk-d-cografya);
-}
+  .category-cografya.topic-list-item::before {
+    background: var(--sk-d-cografya);
+  }
 
-.category-ingilizce.topic-list-item::before,
-.category-ingilizce::before {
-  background: var(--sk-d-ingilizce);
-}
+  .category-ingilizce.topic-list-item::before {
+    background: var(--sk-d-ingilizce);
+  }
 
-// ---- "Benzer konular" listeleri de aynı kart dilini alır ----
-.more-topics__lists .topic-list-body,
-.suggested-topics .topic-list-body {
-  display: grid;
-  gap: 14px;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  // ---- "Benzer konular" listeleri de aynı kart dilini alır ----
+  .more-topics__lists .topic-list-body,
+  .suggested-topics .topic-list-body {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
 }

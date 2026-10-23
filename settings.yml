@@ -1,0 +1,20 @@
+# Sorumatik Tema — yönetim panelinden değiştirilebilen ayarlar (K1)
+sk_grid_acik:
+  type: bool
+  default: true
+  description: "Ana sayfada kart ızgarası görünümü. Kapatırsanız klasik tablo listesine döner."
+
+sk_kart_animasyon:
+  type: bool
+  default: true
+  description: "Fare kartın üzerine gelince kartın hafifçe yükselmesi (hareket efekti)."
+
+sk_adim_stili:
+  type: bool
+  default: true
+  description: "Cevaplardaki numaralı listeleri 'adım adım çözüm' rozetlerine çevir."
+
+sk_mobil_ozet:
+  type: bool
+  default: false
+  description: "Telefonda kartlarda soru özetini göster (öntanımlı: gizli, daha çok soru sığar)."

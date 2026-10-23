@@ -35,6 +35,18 @@ ders renk kodlaması).
 
 Alternatif: depoyu ZIP olarak indirip **Temalar → Kur → Diskten** ile yükleyin.
 
+### Yönetim paneli ayarları
+
+Tema kurulduktan sonra **Görünüm → Temalar → Sorumatik Tema → Ayarlar** bölümünden kod
+değişikliği olmadan şu davranışları değiştirebilirsiniz:
+
+| Ayar | Öntanımlı | İşlev |
+|---|---|---|
+| `sk_grid_acik` | açık | Kart ızgarası; kapatırsanız klasik tablo listesine döner |
+| `sk_kart_animasyon` | açık | Kart hover yükselme animasyonu |
+| `sk_adim_stili` | açık | Cevaplardaki numaralı listeler adım rozetlerine dönüşür |
+| `sk_mobil_ozet` | kapalı | Telefonda soru özeti gösterilir |
+
 ### Gereksinimler
 
 | Eklenti | Zorunlu mu | Amaç |
@@ -60,21 +72,51 @@ Tüm tasarım değerleri `common/common.scss` dosyasının en üstündeki
 Marka rengini, zemin rengini veya yarıçapları tek yerden
 değiştirebilirsiniz.
 
-## Bilinen sınırlar (yol haritası)
+## Eşlik eden bileşen (Faz D)
 
-- Karşılama (hero) alanı ve başlığa "Soru Sor" düğmesi eklemek markup
-  gerektirir; bu tema bilinçli olarak yalnızca CSS'tir (Plan Faz 2–3,
-  JS'li bileşenler ayrı tema bileşeni olarak eklenebilir).
-- "Cevap bekliyor" kehribar rozeti, cevapsız konuları tespit ettiği için
-  küçük bir JS bileşeni ister (Plan 6.2'deki davet kutusu ile birlikte
-  Faz 3'te eklenebilir).
+Başlıktaki "Soru Sor" düğmesi, cevapsız kartlarda kehribar "Cevap bekliyor"
+rozeti ve yönetim panelinden kategori renk eşlemesi, JavaScript gerektirdiği
+için ayrı bir tema bileşenindedir: **sorumatik-tema-bilesen**. Bileşenin
+kendi deposu/ZIP'i ile kurulum yapılır, ana temaya eklenir; istenirse tek
+tıkla devre dışı bırakılabilir. Ana tema JS'siz taahhüdünü korur.
+
+## Bilinen sınırlar
+
+- Karşılama (hero) alanı hâlâ markup ister; yalnızca bileşen sürümüyle
+  değil, özel bir connector bileşeniyle de eklenebilir (Plan 5.1).
+- Konu listesi tablo→grid dönüşümü, Discourse listeyi div tabanlı
+  işaretlemeye taşırsa gözden geçirilmeli; seçiciler sınıf tabanlı
+  yazıldığı için etki sınırlıdır (K2). Canlıya almadan önce kurulumunuzun
+  Discourse sürümünde test sayfası ve gerçek liste üzerinde bir kez
+  doğrulayın.
+
+## Erişilebilirlik notları (E1, E2)
+
+Kart ızgarası, konu listesinin tablo yapısını görsel olarak karta çevirir;
+bu, yardımcı teknolojilerin listeyi artık tablo olarak okumadığı anlamına
+gelir — kart tasarımının bilinen bedelidir. Bedeli hafifletmek için kolon
+başlıkları DOM'da tutulur (görsel gizleme deseni) ve ekran okuyucu kolon
+bağlamını yine duyar; her kart kendi içinde eksiksiz bilgi taşır (ders adı,
+cevap sayısı, göreli zaman). Öncelikli gezinme yolu kart başlığındaki konu
+bağlantısıdır ve başlık metni eksiksiz okunur.
+
+## Sürüm akışı
+
+Değişiklikler [CHANGELOG.md](CHANGELOG.md) içinde tutulur; her yayın
+`v<ana><ikincil><yama>` biçiminde git etiketiyle işaretlenir (ör. `v1.1.0`).
+Yayın adımları: değişikliği yap → `about.json` sürümünü yükselt →
+CHANGELOG'a madde düş → commit + etiket → push → CI yeşilse Discourse'ta
+güncelle.
 
 ## Test
 
-- Her push'ta GitHub Actions tüm SCSS dosyalarını gerçek **dart-sass**
-  ile derler (`.github/workflows/scss.yml`).
+- Her push'ta GitHub Actions üç iş çalıştırır: tüm SCSS'lerin gerçek
+  **dart-sass** ile derlenmesi + 30 KB çıktı bütçesi, **stylelint**
+  denetimi ve 1440/834/390 pikselde **otomatik ekran görüntüleri**
+  (artifact olarak yüklenir). Ayrıntı: `.github/workflows/scss.yml`.
 - `test/` klasöründe, Discourse'un gerçek işaretlemesi taklit edilerek
-  hazırlanmış görsel test sayfası bulunur.
+  hazırlanmış duyarlı görsel test sayfası bulunur; pencereyi daraltarak
+  3 → 2 → 1 kolon geçişini canlı görebilirsiniz.
 
 ## Lisans
 

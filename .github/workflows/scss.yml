@@ -1,4 +1,4 @@
-name: SCSS derleme kontrolü
+name: Tema kalite kontrolü
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   derle:
-    name: Tüm SCSS dosyalarını dart-sass ile derle
+    name: SCSS derleme (dart-sass)
     runs-on: ubuntu-latest
     steps:
       - name: Depoyu al
@@ -37,3 +37,57 @@ jobs:
             exit 1
           fi
           echo "Tüm SCSS dosyaları hatasız derlendi."
+
+      - name: Çıktı boyutu bütçesi (S1)
+        run: |
+          boyut=$(cat .build/*.css | wc -c)
+          echo "Toplam derlenmiş CSS: $boyut bayt"
+          if [ "$boyut" -gt 30000 ]; then
+            echo "HATA: CSS boyutu 30 KB bütçesini aştı!"
+            exit 1
+          fi
+          echo "Bütçe içinde."
+
+  stil:
+    name: stylelint denetimi
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: stylelint kur
+        run: npm install --no-save stylelint stylelint-config-recommended-scss postcss-scss
+
+      - name: Denetle
+        run: npx stylelint "common/**/*.scss" "desktop/**/*.scss" "mobile/**/*.scss"
+
+  gorsel:
+    name: Görsel kırılım testleri (1440/834/390)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Playwright kur
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Ekran görüntülerini üret
+        run: node tools/screenshot.mjs
+
+      - name: Görüntüleri artifact olarak yükle
+        uses: actions/upload-artifact@v4
+        with:
+          name: gorsel-test
+          path: screenshots/
