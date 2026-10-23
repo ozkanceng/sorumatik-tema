@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorumatik — Yeni Nesil Eğitim Platformu (Tasarım Önizleme)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================================
+     TASARIM SİSTEMİ & RENK DEĞİŞKENLERİ (2026 Edition)
+     ========================================================================= */
+  :root {
+    /* Açık Tema Yüzeyleri */
+    --bg-page: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --bg-subtle: #F1F5F9;
+    --bg-glass: rgba(255, 255, 255, 0.85);
+
+    /* Metin Renkleri */
+    --text-primary: #0F172A;
+    --text-secondary: #334155;
+    --text-muted: #64748B;
+    --text-faint: #94A3B8;
+
+    /* Kenarlıklar */
+    --border-subtle: #F1F5F9;
+    --border-light: #E2E8F0;
+    --border-medium: #CBD5E1;
+
+    /* Marka Mavisi (Sorumatik Electric Blue) */
+    --brand: #2563EB;
+    --brand-hover: #1D4ED8;
+    --brand-tint: #EFF6FF;
+    --brand-line: #BFDBFE;
+    --brand-glow: rgba(37, 99, 235, 0.20);
+
+    /* Çözüldü (Zümrüt Yeşili) */
+    --emerald: #10B981;
+    --emerald-dark: #059669;
+    --emerald-tint: #ECFDF5;
+    --emerald-border: #A7F3D0;
+
+    /* Bekliyor (Kehribar/Sıcak Turuncu) */
+    --amber: #D97706;
+    --amber-tint: #FFFBEB;
+    --amber-border: #FDE68A;
+
+    /* AI / Yapay Zeka (Mor / Gradient) */
+    --purple: #8B5CF6;
+    --purple-tint: #F5F3FF;
+    --purple-border: #DDD6FE;
+
+    /* Ders Renkleri */
+    --d-mat: #2563EB; --d-mat-bg: #EFF6FF;
+    --d-fiz: #7C3AED; --d-fiz-bg: #F5F3FF;
+    --d-kim: #0D9488; --d-kim-bg: #F0FDFA;
+    --d-bio: #16A34A; --d-bio-bg: #F0FDF4;
+    --d-tur: #EA580C; --d-tur-bg: #FFF7ED;
+    --d-tar: #B45309; --d-tar-bg: #FFFBEB;
+    --d-cog: #0284C7; --d-cog-bg: #F0F9FF;
+    --d-ing: #C026D3; --d-ing-bg: #FDF4FF;
+
+    /* Geometri & Gölgeler */
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --radius-pill: 9999px;
+
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.06), 0 2px 4px -1px rgba(15, 23, 42, 0.03);
+    --shadow-lg: 0 12px 30px -4px rgba(15, 23, 42, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
+    --shadow-hover: 0 16px 36px -6px rgba(37, 99, 235, 0.16), 0 4px 12px -2px rgba(15, 23, 42, 0.05);
+
+    --container-max: 1240px;
+    --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-normal: 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Koyu Tema (Dark Mode) */
+  [data-theme="dark"] {
+    --bg-page: #0B1120;
+    --bg-surface: #1E293B;
+    --bg-subtle: #0F172A;
+    --bg-glass: rgba(30, 41, 59, 0.88);
+
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #94A3B8;
+    --text-faint: #64748B;
+
+    --border-subtle: #1E293B;
+    --border-light: #334155;
+    --border-medium: #475569;
+
+    --brand: #3B82F6;
+    --brand-hover: #60A5FA;
+    --brand-tint: rgba(59, 130, 246, 0.14);
+    --brand-line: rgba(59, 130, 246, 0.30);
+
+    --emerald: #34D399;
+    --emerald-dark: #10B981;
+    --emerald-tint: rgba(16, 185, 129, 0.14);
+    --emerald-border: rgba(16, 185, 129, 0.35);
+
+    --amber: #FBBF24;
+    --amber-tint: rgba(245, 158, 11, 0.14);
+    --amber-border: rgba(245, 158, 11, 0.35);
+
+    --purple: #A78BFA;
+    --purple-tint: rgba(139, 92, 246, 0.14);
+    --purple-border: rgba(139, 92, 246, 0.35);
+
+    --d-mat-bg: rgba(37, 99, 235, 0.15);
+    --d-fiz-bg: rgba(124, 58, 237, 0.15);
+    --d-kim-bg: rgba(13, 148, 136, 0.15);
+    --d-bio-bg: rgba(22, 163, 74, 0.15);
+    --d-tur-bg: rgba(234, 88, 12, 0.15);
+    --d-tar-bg: rgba(180, 83, 9, 0.15);
+    --d-cog-bg: rgba(2, 132, 199, 0.15);
+    --d-ing-bg: rgba(192, 38, 211, 0.15);
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 16px 36px rgba(59, 130, 246, 0.22);
+  }
+
+  
+  .subject-icon {
+    display: inline-block; vertical-align: middle;
+    flex-shrink: 0; margin-right: 2px;
+  }
+
+  /* Temel Sıfırlamalar */
+  *, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-size: 15.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    overflow-x: hidden;
+  }
+  a { color: var(--brand); text-decoration: none; transition: color var(--transition-fast); }
+  a:hover { color: var(--brand-hover); }
+  button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  :focus-visible { outline: 2.5px solid var(--brand); outline-offset: 2px; border-radius: var(--radius-sm); }
+
+  /* Sayfa Sarmalayıcı */
+  #app-viewport {
+    width: 100%;
+    margin: 0 auto;
+    transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+  }
+  #app-viewport.sim-tablet { max-width: 834px; box-shadow: 0 0 0 1px var(--border-light), 0 20px 40px rgba(0,0,0,0.12); border-radius: 20px; overflow: hidden; margin-top: 16px; margin-bottom: 90px; }
+  #app-viewport.sim-mobile { max-width: 390px; box-shadow: 0 0 0 1px var(--border-light), 0 20px 40px rgba(0,0,0,0.15); border-radius: 28px; overflow: hidden; margin-top: 16px; margin-bottom: 90px; }
+
+  .wrap {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* =========================================================================
+     ÜST ÇUBUK (HEADER) — GLASSMORPHISM
+     ========================================================================= */
+  .site-header {
+    position: sticky; top: 0; z-index: 60;
+    background: var(--bg-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-light);
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+  .header-in {
+    display: flex; align-items: center; gap: 24px;
+    height: 68px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 11px;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .logo-icon {
+    width: 38px; height: 38px; border-radius: 11px;
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    display: flex; align-items: center; justify-content: center;
+    color: #FFFFFF; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.32);
+    transition: transform var(--transition-fast);
+  }
+  .logo:hover .logo-icon { transform: scale(1.04) rotate(-3deg); }
+  .logo-text {
+    font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+    color: var(--text-primary);
+  }
+  .logo-text span {
+    color: var(--brand);
+    position: relative;
+  }
+  .logo-badge {
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+    background: var(--brand-tint); color: var(--brand);
+    padding: 2px 7px; border-radius: var(--radius-pill);
+    margin-left: 6px; letter-spacing: 0.5px;
+  }
+
+  /* Arama Çubuğu */
+  .header-search {
+    flex: 1; max-width: 500px; position: relative;
+  }
+  .header-search svg {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--text-muted); pointer-events: none;
+  }
+  .header-search input {
+    width: 100%; height: 44px; border-radius: var(--radius-pill);
+    background: var(--bg-subtle); border: 1.5px solid transparent;
+    padding: 0 84px 0 42px; font-size: 14.5px; color: var(--text-primary);
+    transition: all var(--transition-fast);
+  }
+  .header-search input:focus {
+    background: var(--bg-surface); border-color: var(--brand);
+    outline: none; box-shadow: 0 0 0 4px var(--brand-glow);
+  }
+  .search-shortcut {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    background: var(--bg-surface); border: 1px solid var(--border-medium);
+    border-radius: 6px; padding: 2px 7px; font-size: 11.5px; font-weight: 600;
+    color: var(--text-muted); pointer-events: none;
+  }
+
+  /* Üst Bar Sağ Aksiyonlar */
+  .header-actions {
+    display: flex; align-items: center; gap: 12px; margin-left: auto;
+  }
+  .btn-theme-toggle {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    transition: all var(--transition-fast);
+  }
+  .btn-theme-toggle:hover {
+    color: var(--text-primary); border-color: var(--border-medium);
+    transform: scale(1.05);
+  }
+  .btn-ask {
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 42px; padding: 0 18px; border-radius: var(--radius-pill);
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    color: #FFFFFF; font-weight: 700; font-size: 14.5px;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.28);
+    transition: all var(--transition-fast);
+  }
+  .btn-ask:hover {
+    transform: translateY(-1.5px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.38);
+    color: #FFFFFF; text-decoration: none;
+  }
+  .user-pill {
+    display: flex; align-items: center; gap: 9px;
+    padding: 4px 12px 4px 4px; border-radius: var(--radius-pill);
+    background: var(--bg-subtle); border: 1px solid var(--border-light);
+    cursor: pointer; transition: all var(--transition-fast);
+  }
+  .user-pill:hover { border-color: var(--border-medium); }
+  .user-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, #6366F1, #8B5CF6);
+    color: #FFFFFF; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px;
+  }
+  .user-info { display: flex; flex-direction: column; text-align: left; }
+  .user-name { font-size: 13px; font-weight: 700; line-height: 1.2; }
+  .user-level { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+
+  /* =========================================================================
+     GÖRÜNÜM 1: ANA SAYFA (HOME)
+     ========================================================================= */
+  .hero-section {
+    padding: 48px 0 28px;
+    position: relative;
+  }
+  .hero-section::before {
+    content: ""; position: absolute; left: 50%; top: -60px; transform: translateX(-50%);
+    width: 700px; height: 350px;
+    background: radial-gradient(circle, var(--brand-glow) 0%, transparent 70%);
+    filter: blur(50px); pointer-events: none; z-index: -1;
+  }
+  .hero-headline {
+    text-align: center; max-width: 760px; margin: 0 auto;
+  }
+  .hero-headline h1 {
+    font-size: clamp(28px, 4vw, 42px); font-weight: 800; letter-spacing: -1px;
+    line-height: 1.2; color: var(--text-primary);
+  }
+  .hero-headline h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-headline p {
+    font-size: 17px; color: var(--text-muted); margin-top: 12px; line-height: 1.5;
+  }
+
+  /* Büyük Arama & Aksiyon Barı */
+  .hero-search-box {
+    max-width: 720px; margin: 30px auto 0;
+    display: flex; gap: 12px;
+  }
+  .hero-search-input-wrap {
+    flex: 1; position: relative;
+  }
+  .hero-search-input-wrap svg {
+    position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+    color: var(--text-muted);
+  }
+  .hero-search-input {
+    width: 100%; height: 56px; border-radius: var(--radius-lg);
+    background: var(--bg-surface); border: 2px solid var(--border-light);
+    padding: 0 20px 0 52px; font-size: 16px; color: var(--text-primary);
+    box-shadow: var(--shadow-md); transition: all var(--transition-fast);
+  }
+  .hero-search-input:focus {
+    border-color: var(--brand); outline: none;
+    box-shadow: 0 0 0 4px var(--brand-glow), var(--shadow-md);
+  }
+  .btn-upload-photo {
+    display: inline-flex; align-items: center; gap: 9px;
+    height: 56px; padding: 0 24px; border-radius: var(--radius-lg);
+    background: var(--bg-surface); border: 2px solid var(--border-light);
+    color: var(--text-primary); font-weight: 700; font-size: 15px;
+    box-shadow: var(--shadow-md); transition: all var(--transition-fast);
+    white-space: nowrap;
+  }
+  .btn-upload-photo:hover {
+    border-color: var(--brand); color: var(--brand);
+    transform: translateY(-2px); box-shadow: var(--shadow-lg);
+  }
+
+  /* Hızlı Sınav Etiketleri */
+  .quick-tags {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; flex-wrap: wrap; margin-top: 18px;
+  }
+  .tag-label {
+    font-size: 13px; font-weight: 600; color: var(--text-muted); margin-right: 4px;
+  }
+  .tag-chip {
+    padding: 5px 13px; border-radius: var(--radius-pill);
+    background: var(--bg-surface); border: 1px solid var(--border-light);
+    font-size: 13.5px; font-weight: 600; color: var(--text-secondary);
+    transition: all var(--transition-fast); box-shadow: var(--shadow-sm);
+  }
+  .tag-chip:hover {
+    border-color: var(--brand); color: var(--brand); background: var(--brand-tint);
+    transform: translateY(-1px);
+  }
+
+  /* Ders Kapsülleri (Yatay Kaydırılabilir Şerit) */
+  .subject-bar {
+    display: flex; gap: 10px; margin: 36px 0 20px;
+    overflow-x: auto; padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+  .subject-bar::-webkit-scrollbar { display: none; }
+  .sub-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 18px; border-radius: var(--radius-pill);
+    background: var(--bg-surface); border: 1.5px solid var(--border-light);
+    font-size: 14px; font-weight: 700; color: var(--text-secondary);
+    white-space: nowrap; transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+  }
+  .sub-pill:hover, .sub-pill.active {
+    border-color: var(--pill-color, var(--brand));
+    color: var(--pill-color, var(--brand));
+    background: var(--pill-bg, var(--brand-tint));
+    transform: translateY(-2px); box-shadow: var(--shadow-md);
+  }
+  .sub-pill .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--pill-color, var(--brand));
+  }
+  .sub-pill .sub-count {
+    font-size: 12px; font-weight: 600; color: var(--text-muted);
+    background: var(--bg-subtle); padding: 2px 7px; border-radius: var(--radius-pill);
+  }
+
+  /* Filtre ve Sekme Çubuğu */
+  .filter-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; margin: 24px 0 20px; border-bottom: 1.5px solid var(--border-light);
+    padding-bottom: 12px; flex-wrap: wrap;
+  }
+  .tabs-group {
+    display: flex; align-items: center; gap: 6px;
+  }
+  .tab-btn {
+    padding: 8px 16px; border-radius: var(--radius-pill);
+    font-size: 14.5px; font-weight: 700; color: var(--text-muted);
+    transition: all var(--transition-fast); display: flex; align-items: center; gap: 7px;
+  }
+  .tab-btn:hover { color: var(--text-primary); background: var(--bg-subtle); }
+  .tab-btn.active {
+    color: var(--brand); background: var(--brand-tint);
+  }
+  .tab-badge {
+    font-size: 11.5px; font-weight: 700; padding: 2px 7px; border-radius: var(--radius-pill);
+    background: var(--bg-subtle); color: var(--text-muted);
+  }
+  .tab-btn.active .tab-badge { background: var(--brand); color: #FFFFFF; }
+
+  .sort-control {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13.5px; color: var(--text-muted); font-weight: 600;
+  }
+  .sort-select {
+    padding: 6px 12px; border-radius: var(--radius-sm);
+    background: var(--bg-surface); border: 1.5px solid var(--border-light);
+    color: var(--text-secondary); font-weight: 600; font-size: 13.5px;
+  }
+
+  /* =========================================================================
+     KART IZGARASI (GRID: 3 Kolon Masaüstü | 2 Kolon Tablet | 1 Kolon Mobil)
+     ========================================================================= */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 22px;
+    padding-bottom: 60px;
+  }
+
+  .q-card {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    display: flex; flex-direction: column; gap: 14px;
+    box-shadow: var(--shadow-sm);
+    position: relative; overflow: hidden;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    cursor: pointer;
+  }
+  /* Sol 4px Ders Şeridi */
+  .q-card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4.5px; background: var(--card-color, var(--brand));
+    transition: width var(--transition-fast);
+  }
+  .q-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--brand-line);
+  }
+  .q-card:hover::before { width: 6px; }
+
+  /* Kart Üst Bölüm: Ders, Sınav, Durum */
+  .card-header-line {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .subject-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12.5px; font-weight: 700; padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    color: var(--card-color, var(--brand));
+    background: var(--card-bg, var(--brand-tint));
+  }
+  .subject-tag i {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--card-color, var(--brand));
+  }
+  .exam-tag {
+    font-size: 12px; font-weight: 700; color: var(--text-muted);
+    background: var(--bg-subtle); border: 1px solid var(--border-light);
+    padding: 3.5px 9px; border-radius: var(--radius-pill);
+  }
+  .status-badge {
+    margin-left: auto; display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 750; padding: 4px 10px;
+    border-radius: var(--radius-pill);
+  }
+  .status-badge.solved {
+    background: var(--emerald-tint); color: var(--emerald-dark);
+    border: 1px solid var(--emerald-border);
+  }
+  .status-badge.waiting {
+    background: var(--amber-tint); color: var(--amber);
+    border: 1px solid var(--amber-border);
+  }
+  .status-badge.ai {
+    background: var(--purple-tint); color: var(--purple);
+    border: 1px solid var(--purple-border);
+  }
+
+  /* Kart Başlık & Özet */
+  .card-title {
+    font-size: 17.5px; font-weight: 750; line-height: 1.4;
+    color: var(--text-primary); letter-spacing: -0.2px;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .q-card:hover .card-title { color: var(--brand); }
+  .card-excerpt {
+    font-size: 14.5px; color: var(--text-muted); line-height: 1.55;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Kart Alt Meta Satırı (Tek Satırda Flex — T1 Çözümü) */
+  .card-footer-meta {
+    margin-top: auto; padding-top: 14px;
+    border-top: 1px solid var(--border-subtle);
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px; color: var(--text-muted); font-weight: 600;
+  }
+  .meta-left {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .meta-answers {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--brand); font-weight: 700;
+  }
+  .meta-answers.waiting { color: var(--amber); }
+  .meta-views {
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .meta-right {
+    display: flex; align-items: center; gap: 9px;
+  }
+  .avatar-stack {
+    display: flex;
+  }
+  .avatar-stack span {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 2px solid var(--bg-surface);
+    display: flex; align-items: center; justify-content: center;
+    color: #FFFFFF; font-size: 10px; font-weight: 750;
+    margin-left: -7px; box-shadow: var(--shadow-sm);
+  }
+  .avatar-stack span:first-child { margin-left: 0; }
+  .meta-time {
+    white-space: nowrap; color: var(--text-faint); font-size: 12.5px;
+  }
+
+  /* =========================================================================
+     GÖRÜNÜM 2: SORU SAYFASI (TAM GENİŞLİK + SAF BEYAZ EĞİTİM OKUMA DÜZENİ)
+     ========================================================================= */
+  .question-view-wrapper {
+    background-color: var(--bg-surface);
+    min-height: calc(100vh - 68px);
+    padding: 32px 0 80px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  /* Kırıntı Yolu (Breadcrumbs) */
+  .breadcrumbs {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    font-size: 13.5px; font-weight: 600; color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .breadcrumbs a { color: var(--text-muted); }
+  .breadcrumbs a:hover { color: var(--brand); }
+  .breadcrumbs svg { color: var(--text-faint); }
+  .breadcrumbs span.current { color: var(--text-primary); font-weight: 700; }
+
+  /* İki Sütunlu Sayfa Düzeni (Geniş Okuma + Sticky Sağ Panel) */
+  .question-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 36px;
+    align-items: start;
+  }
+
+  /* Soru Başlık Alanı */
+  .question-header {
+    margin-bottom: 24px;
+  }
+  .question-title {
+    font-size: clamp(24px, 3.2vw, 32px); font-weight: 800;
+    line-height: 1.3; letter-spacing: -0.5px; color: var(--text-primary);
+    max-width: 820px;
+  }
+  .question-badges {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .author-bar {
+    display: flex; align-items: center; gap: 14px;
+    margin-top: 20px; padding: 14px 18px; border-radius: var(--radius-md);
+    background: var(--bg-subtle); border: 1px solid var(--border-light);
+  }
+  .author-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+    color: #FFFFFF; font-weight: 750; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; box-shadow: var(--shadow-sm);
+  }
+  .author-meta { flex: 1; }
+  .author-name { font-size: 15px; font-weight: 750; color: var(--text-primary); }
+  .author-sub { font-size: 13px; color: var(--text-muted); }
+  .author-actions { display: flex; gap: 8px; margin-left: auto; }
+  .btn-follow {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: var(--radius-pill);
+    background: var(--bg-surface); border: 1.5px solid var(--border-light);
+    font-size: 13px; font-weight: 700; color: var(--text-secondary);
+    transition: all var(--transition-fast);
+  }
+  .btn-follow:hover { border-color: var(--brand); color: var(--brand); }
+
+  /* Soru Gövdesi */
+  .question-content {
+    font-size: 17px; line-height: 1.72; color: var(--text-primary);
+    max-width: 760px;
+  }
+  .question-content p { margin-bottom: 16px; }
+
+  /* Soru Fotoğrafı Kartı */
+  .question-photo-card {
+    margin: 22px 0 16px; border-radius: var(--radius-md);
+    border: 1.5px solid var(--border-light);
+    background: var(--bg-subtle); padding: 18px;
+    display: flex; flex-direction: column; gap: 10px;
+    box-shadow: var(--shadow-sm);
+  }
+  .photo-preview-box {
+    width: 100%; max-height: 380px; border-radius: var(--radius-sm);
+    background: #0F172A; display: flex; align-items: center; justify-content: center;
+    overflow: hidden; position: relative; cursor: zoom-in;
+  }
+  .photo-preview-box img {
+    max-width: 100%; height: auto; object-fit: contain;
+    transition: transform var(--transition-normal);
+  }
+  .photo-preview-box:hover img { transform: scale(1.02); }
+  .photo-zoom-hint {
+    position: absolute; right: 12px; bottom: 12px;
+    background: rgba(15, 23, 42, 0.75); color: #FFFFFF; backdrop-filter: blur(8px);
+    font-size: 12.5px; font-weight: 600; padding: 6px 12px; border-radius: var(--radius-pill);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .photo-caption {
+    font-size: 13.5px; color: var(--text-muted); font-weight: 600;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  /* Formül Kutusu (KaTeX) */
+  .formula-box {
+    margin: 20px 0; background: var(--bg-subtle);
+    border: 1.5px solid var(--border-light); border-left: 4px solid var(--brand);
+    border-radius: var(--radius-md); padding: 16px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: 'JetBrains Mono', 'Cambria Math', Georgia, monospace;
+    font-size: 18px; color: var(--text-primary);
+  }
+  .formula-box .btn-copy-latex {
+    font-size: 12px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--brand); background: var(--bg-surface);
+    border: 1px solid var(--border-light); padding: 5px 11px;
+    border-radius: var(--radius-pill); transition: all var(--transition-fast);
+  }
+  .formula-box .btn-copy-latex:hover {
+    background: var(--brand); color: #FFFFFF; border-color: var(--brand);
+  }
+
+  /* Soru Altı Aksiyonları */
+  .question-actions-bar {
+    display: flex; align-items: center; gap: 10px; margin-top: 24px;
+    padding-bottom: 28px; border-bottom: 1px solid var(--border-light);
+    flex-wrap: wrap;
+  }
+  .btn-action {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 16px; border-radius: var(--radius-pill);
+    background: var(--bg-subtle); border: 1.5px solid var(--border-light);
+    font-size: 13.5px; font-weight: 700; color: var(--text-secondary);
+    transition: all var(--transition-fast);
+  }
+  .btn-action:hover, .btn-action.active {
+    border-color: var(--brand); color: var(--brand); background: var(--brand-tint);
+  }
+
+  /* =========================================================================
+     8PX GÖRSEL AYIRICI BANT & ÇÖZÜMLER BÖLÜMÜ
+     ========================================================================= */
+  .section-divider-band {
+    height: 8px;
+    background: var(--bg-subtle);
+    border-radius: var(--radius-pill);
+    margin: 32px 0 28px;
+  }
+
+  .solutions-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+  }
+  .solutions-header h2 {
+    font-size: 22px; font-weight: 800; letter-spacing: -0.4px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .solutions-count-pill {
+    background: var(--brand-tint); color: var(--brand);
+    font-size: 13px; font-weight: 750; padding: 3px 10px;
+    border-radius: var(--radius-pill);
+  }
+  .solutions-filter-pills {
+    display: flex; gap: 6px;
+  }
+  .filter-pill-mini {
+    font-size: 12.5px; font-weight: 700; padding: 4px 10px;
+    border-radius: var(--radius-pill); background: var(--bg-subtle);
+    color: var(--text-muted); cursor: pointer; transition: all var(--transition-fast);
+  }
+  .filter-pill-mini.active {
+    background: var(--brand); color: #FFFFFF;
+  }
+
+  /* =========================================================================
+     DOĞRULANMIŞ ÇÖZÜM / EN İYİ CEVAP KARTI
+     ========================================================================= */
+  .answer-card {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 26px; margin-bottom: 22px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition-fast);
+  }
+  .answer-card.verified {
+    background: var(--emerald-tint);
+    border: 1.5px solid var(--emerald-border);
+    border-left: 5px solid var(--emerald-dark);
+    box-shadow: 0 4px 20px -2px rgba(16, 185, 129, 0.12);
+  }
+  .verified-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--emerald-dark); color: #FFFFFF;
+    font-size: 13px; font-weight: 800; padding: 5px 14px;
+    border-radius: var(--radius-pill); margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+  }
+
+  /* Cevaplayan Bilgisi */
+  .responder-bar {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+  }
+  .responder-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, #10B981, #059669);
+    color: #FFFFFF; font-weight: 750; font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .responder-info b { font-size: 15px; font-weight: 750; display: block; }
+  .responder-info span { font-size: 12.5px; color: var(--text-muted); font-weight: 600; }
+  .verified-teacher-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--emerald-tint); color: var(--emerald-dark);
+    border: 1px solid var(--emerald-border);
+    padding: 2px 8px; border-radius: var(--radius-pill);
+    font-size: 11.5px; font-weight: 700; margin-left: 6px;
+  }
+
+  /* Adım Adım Çözüm Akışı */
+  .steps-flow {
+    display: flex; flex-direction: column; gap: 16px; margin: 18px 0;
+  }
+  .step-row {
+    display: flex; gap: 14px;
+  }
+  .step-num-badge {
+    width: 28px; height: 28px; border-radius: 9px;
+    background: var(--brand); color: #FFFFFF;
+    font-size: 13.5px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+  }
+  .answer-card.verified .step-num-badge {
+    background: var(--emerald-dark);
+    box-shadow: 0 2px 6px rgba(5, 150, 105, 0.3);
+  }
+  .step-text {
+    flex: 1; font-size: 16px; line-height: 1.65; color: var(--text-primary);
+  }
+  .step-formula-mini {
+    margin-top: 8px; background: var(--bg-surface);
+    border: 1px solid var(--border-light); border-radius: var(--radius-sm);
+    padding: 8px 14px; font-family: 'JetBrains Mono', monospace; font-size: 15px;
+    display: inline-block;
+  }
+
+  /* Sonuç Kutusu */
+  .result-banner {
+    margin-top: 20px;
+    background: linear-gradient(135deg, rgba(236, 253, 245, 0.9), rgba(240, 253, 244, 0.9));
+    border: 1.5px solid var(--emerald-border);
+    border-radius: var(--radius-md); padding: 16px 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  [data-theme="dark"] .result-banner {
+    background: rgba(16, 185, 129, 0.15);
+  }
+  .result-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--emerald-dark); color: #FFFFFF;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .result-content b { font-size: 14px; font-weight: 800; color: var(--emerald-dark); display: block; }
+  .result-content .result-math {
+    font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 700;
+    color: var(--text-primary); margin-top: 2px;
+  }
+
+  /* Cevap Altı Butonları */
+  .answer-footer {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid var(--border-light);
+  }
+  .btn-helpful {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 15px; border-radius: var(--radius-pill);
+    background: var(--bg-surface); border: 1.5px solid var(--border-light);
+    font-size: 13.5px; font-weight: 750; color: var(--text-secondary);
+    transition: all var(--transition-fast);
+  }
+  .btn-helpful:hover, .btn-helpful.active {
+    background: var(--emerald-tint); border-color: var(--emerald-border);
+    color: var(--emerald-dark);
+  }
+
+  /* =========================================================================
+     YAPAY ZEKA ÇÖZÜMÜ KARTI (SORUMATİK AI SOLVER)
+     ========================================================================= */
+  .answer-card.ai-card {
+    background: linear-gradient(135deg, rgba(245, 243, 255, 0.7), rgba(239, 246, 255, 0.7));
+    border: 1.5px solid var(--purple-border);
+    border-left: 5px solid var(--purple);
+  }
+  [data-theme="dark"] .answer-card.ai-card {
+    background: rgba(139, 92, 246, 0.12);
+  }
+  .ai-header-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: linear-gradient(135deg, #8B5CF6, #6366F1); color: #FFFFFF;
+    font-size: 13px; font-weight: 800; padding: 5px 14px;
+    border-radius: var(--radius-pill); margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.35);
+  }
+
+  /* Cevap Yazma Alanı (Composer) */
+  .composer-card {
+    margin-top: 32px; background: var(--bg-surface);
+    border: 1.5px solid var(--border-light); border-radius: var(--radius-lg);
+    padding: 22px 24px; box-shadow: var(--shadow-sm);
+  }
+  .composer-card h3 {
+    font-size: 17px; font-weight: 800; margin-bottom: 12px;
+  }
+  .composer-textarea {
+    width: 100%; min-height: 100px; border-radius: var(--radius-md);
+    background: var(--bg-subtle); border: 1.5px solid var(--border-light);
+    padding: 14px 16px; font-size: 15px; color: var(--text-primary);
+    font-family: inherit; resize: vertical; transition: all var(--transition-fast);
+  }
+  .composer-textarea:focus {
+    outline: none; border-color: var(--brand); background: var(--bg-surface);
+    box-shadow: 0 0 0 3px var(--brand-glow);
+  }
+  .composer-toolbar {
+    display: flex; align-items: center; gap: 8px; margin-top: 14px;
+  }
+  .tool-btn {
+    width: 36px; height: 36px; border-radius: var(--radius-sm);
+    background: var(--bg-subtle); border: 1px solid var(--border-light);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: var(--text-secondary);
+    transition: all var(--transition-fast);
+  }
+  .tool-btn:hover { border-color: var(--brand); color: var(--brand); }
+
+  /* =========================================================================
+     SAĞ KENAR ÇUBUĞU (SIDEBAR)
+     ========================================================================= */
+  .sidebar-column {
+    display: flex; flex-direction: column; gap: 20px;
+    position: sticky; top: 90px;
+  }
+  .side-panel {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 20px; box-shadow: var(--shadow-sm);
+  }
+  .side-panel h3 {
+    font-size: 16px; font-weight: 800; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .similar-list {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .similar-item {
+    display: flex; gap: 10px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    text-decoration: none;
+  }
+  .similar-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .similar-item .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    margin-top: 6px; flex-shrink: 0;
+  }
+  .similar-title {
+    font-size: 13.5px; font-weight: 700; line-height: 1.4; color: var(--text-primary);
+  }
+  .similar-item:hover .similar-title { color: var(--brand); }
+  .similar-meta {
+    font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 3px;
+  }
+
+  .app-banner {
+    background: linear-gradient(135deg, #1D4ED8, #1E40AF);
+    border: none; color: #FFFFFF;
+  }
+  .app-banner h3 { color: #FFFFFF; }
+  .app-banner p { font-size: 13.5px; color: #BFDBFE; margin: 8px 0 16px; line-height: 1.5; }
+  .store-buttons { display: flex; gap: 8px; }
+  .store-btn {
+    flex: 1; padding: 9px 12px; border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #FFFFFF; font-size: 12.5px; font-weight: 750; text-align: center;
+    backdrop-filter: blur(8px); transition: background var(--transition-fast);
+  }
+  .store-btn:hover { background: rgba(255, 255, 255, 0.25); }
+
+  /* =========================================================================
+     MOCKUP KONTROL PANELİ (SAYFA ALTI)
+     ========================================================================= */
+  .preview-control-bar {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    z-index: 100; background: rgba(15, 23, 42, 0.90);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-pill); padding: 6px 10px;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  }
+  .view-tab-btn {
+    color: #CBD5E1; padding: 7px 16px; border-radius: var(--radius-pill);
+    font-size: 13.5px; font-weight: 700; transition: all var(--transition-fast);
+  }
+  .view-tab-btn.active {
+    background: #FFFFFF; color: #0F172A;
+  }
+  .control-divider {
+    width: 1px; height: 20px; background: rgba(255, 255, 255, 0.2);
+  }
+  .device-btn {
+    color: #94A3B8; padding: 6px 10px; border-radius: var(--radius-sm);
+    font-size: 12.5px; font-weight: 700; display: flex; align-items: center; gap: 5px;
+    transition: all var(--transition-fast);
+  }
+  .device-btn:hover { color: #FFFFFF; }
+  .device-btn.active {
+    color: #FFFFFF; background: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Görsel Büyütme (Lightbox Modal) */
+  .lightbox-modal {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(15, 23, 42, 0.92); backdrop-filter: blur(12px);
+    display: none; align-items: center; justify-content: center; padding: 24px;
+  }
+  .lightbox-modal.active { display: flex; }
+  .lightbox-content {
+    max-width: 900px; max-height: 90vh; border-radius: var(--radius-lg);
+    background: #FFFFFF; padding: 14px; position: relative; box-shadow: var(--shadow-lg);
+  }
+  .lightbox-content img {
+    max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: var(--radius-md);
+  }
+  .lightbox-close {
+    position: absolute; right: -14px; top: -14px; width: 36px; height: 36px;
+    border-radius: 50%; background: #0F172A; color: #FFFFFF; border: 2px solid #FFFFFF;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+    cursor: pointer; box-shadow: var(--shadow-md);
+  }
+
+  /* Duyarlı Tasarım (Responsive Media Queries) */
+  @media (max-width: 1080px) {
+    .question-layout { grid-template-columns: minmax(0, 1fr); }
+    .sidebar-column { position: static; }
+  }
+  @media (max-width: 860px) {
+    .header-search { display: none; }
+    .header-in { gap: 14px; }
+  }
+  @media (max-width: 700px) {
+    .wrap { padding: 0 16px; }
+    .cards-grid { grid-template-columns: 1fr; gap: 14px; }
+    .hero-section { padding-top: 30px; }
+    .hero-search-box { flex-direction: column; }
+    .btn-upload-photo { height: 48px; justify-content: center; }
+    .hero-search-input { height: 48px; }
+    .answer-card, .composer-card { padding: 18px 16px; }
+    .preview-control-bar { bottom: 12px; transform: translateX(-50%) scale(0.92); }
+  }
+</style>
+</head>
+<body>
+
+<div id="app-viewport">
+
+  <!-- ==================== ÜST BAR ==================== -->
+  <header class="site-header">
+    <div class="wrap">
+      <div class="header-in">
+        <a class="logo" href="#" onclick="switchView('home'); return false;">
+          <div class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+          </div>
+          <div class="logo-text">soru<span>matik</span></div>
+          <span class="logo-badge">PRO</span>
+        </a>
+
+        <div class="header-search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input type="search" id="header-search-input" placeholder="Soru, ders veya konu ara..." oninput="handleSearch(this.value)">
+          <span class="search-shortcut">⌘K</span>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn-theme-toggle" id="theme-btn" title="Koyu/Açık Tema Değiştir" onclick="toggleTheme()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+            </svg>
+          </button>
+
+          <button class="btn-ask" onclick="openAskModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            <span>Soru Sor</span>
+          </button>
+
+          <div class="user-pill">
+            <div class="user-avatar">ÖC</div>
+            <div class="user-info">
+              <span class="user-name">Özkan C.</span>
+              <span class="user-level">12. Sınıf • 2.4k Puan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== GÖRÜNÜM 1: ANA SAYFA ==================== -->
+  <main id="view-home">
+    <div class="wrap">
+      <!-- Hero Giriş Bölümü -->
+      <section class="hero-section">
+        <div class="hero-headline">
+          <h1>Aklındaki soruyu sor, <em>birlikte çözelim.</em></h1>
+          <p>Binlerce öğretmen ve öğrenci adım adım çözümlerle yanında. Yapay zeka destekli, tamamen ücretsiz.</p>
+        </div>
+
+        <div class="hero-search-box">
+          <div class="hero-search-input-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.3-4.3"/>
+            </svg>
+            <input type="search" class="hero-search-input" id="hero-search-input" placeholder="Örn: kısmi integrasyon formülü veya eğik atış..." oninput="handleSearch(this.value)">
+          </div>
+          <button class="btn-upload-photo" onclick="alert('Fotoğraf yükleme: Kamerayı açıp sorunun fotoğrafını çekebilirsiniz.')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <span>Soru Fotoğrafı Yükle</span>
+          </button>
+        </div>
+
+        <div class="quick-tags">
+          <span class="tag-label">Popüler:</span>
+          <a class="tag-chip" href="#" onclick="filterByTag('AYT'); return false;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px;margin-right:3px"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>YKS / AYT</a>
+          <a class="tag-chip" href="#" onclick="filterByTag('LGS'); return false;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><path d="M4 19h16M4 5h16M7 5v14M17 5v14M11 9l4 6M15 9l-4 6"/></svg> LGS 2026</a>
+          <a class="tag-chip" href="#" onclick="filterByTag('TYT'); return false;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> TYT</a>
+          <a class="tag-chip" href="#" onclick="filterByTag('KPSS'); return false;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px;margin-right:3px"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>KPSS</a>
+          <a class="tag-chip" href="#" onclick="filterByTag('11. Sınıf'); return false;">🎒 11. Sınıf</a>
+          <a class="tag-chip" href="#" onclick="filterByTag('İntegral'); return false;">∫ İntegral</a>
+        </div>
+      </section>
+
+      <!-- Ders Kapsülleri Şeridi -->
+      <div class="subject-bar">
+        <button class="sub-pill active" onclick="filterBySubject('all')">
+          <span class="dot" style="background:#2563EB"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="subject-icon"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg> Tüm Dersler <span class="sub-count">8.4k</span>
+        </button>
+        <button class="sub-pill" style="--pill-color:var(--d-mat);--pill-bg:var(--d-mat-bg)" onclick="filterBySubject('Matematik')">
+          <span class="dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><path d="M4 19h16M4 5h16M7 5v14M17 5v14M11 9l4 6M15 9l-4 6"/></svg> Matematik <span class="sub-count">2.4k</span>
+        </button>
+        <button class="sub-pill" style="--pill-color:var(--d-fiz);--pill-bg:var(--d-fiz-bg)" onclick="filterBySubject('Fizik')">
+          <span class="dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="subject-icon"><circle cx="12" cy="12" r="2.5" fill="currentColor"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(30 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(-30 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(90 12 12)"/></svg> Fizik <span class="sub-count">1.1k</span>
+        </button>
+        <button class="sub-pill" style="--pill-color:var(--d-kim);--pill-bg:var(--d-kim-bg)" onclick="filterBySubject('Kimya')">
+          <span class="dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><path d="M10 2v7.31a2 2 0 0 1-.37 1.17l-5.32 8A2 2 0 0 0 6 21h12a2 2 0 0 0 1.69-2.52l-5.32-8A2 2 0 0 1 14 9.31V2M8.5 2h7M7 16h10"/></svg> Kimya <span class="sub-count">890</span>
+        </button>
+        <button class="sub-pill" style="--pill-color:var(--d-bio);--pill-bg:var(--d-bio-bg)" onclick="filterBySubject('Biyoloji')">
+          <span class="dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="subject-icon"><path d="M4 4c4 4 12 12 16 16M4 20c4-4 12-12 16-16M7 7l10 10M17 7L7 17M6 10h12M6 14h12"/></svg> Biyoloji <span class="sub-count">1.3k</span>
+        </button>
+        <button class="sub-pill" style="--pill-color:var(--d-tur);--pill-bg:var(--d-tur-bg)" onclick="filterBySubject('Türkçe')">
+          <span class="dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Türkçe <span class="sub-count">1.5k</span>
+        </button>
+        <button class="sub-pill" style="--pill-color:var(--d-tar);--pill-bg:var(--d-tar-bg)" onclick="filterBySubject('Tarih')">
+          <span class="dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><line x1="3" y1="21" x2="21" y2="21"/><line x1="6" y1="18" x2="6" y2="10"/><line x1="10" y1="18" x2="10" y2="10"/><line x1="14" y1="18" x2="14" y2="10"/><line x1="18" y1="18" x2="18" y2="10"/><polygon points="12 2 20 7 4 7"/></svg> Tarih <span class="sub-count">720</span>
+        </button>
+        <button class="sub-pill" style="--pill-color:var(--d-cog);--pill-bg:var(--d-cog-bg)" onclick="filterBySubject('Coğrafya')">
+          <span class="dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Coğrafya <span class="sub-count">480</span>
+        </button>
+        <button class="sub-pill" style="--pill-color:var(--d-ing);--pill-bg:var(--d-ing-bg)" onclick="filterBySubject('İngilizce')">
+          <span class="dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> İngilizce <span class="sub-count">650</span>
+        </button>
+      </div>
+
+      <!-- Filtreleme & Sıralama Barı -->
+      <div class="filter-bar">
+        <div class="tabs-group">
+          <button class="tab-btn active" onclick="setFilter('all', this)">
+            <span>Son Sorular</span> <span class="tab-badge">1.284</span>
+          </button>
+          <button class="tab-btn" onclick="setFilter('solved', this)">
+            <span>✓ Çözülmüş</span> <span class="tab-badge">1.188</span>
+          </button>
+          <button class="tab-btn" onclick="setFilter('waiting', this)">
+            <span>⏳ Cevap Bekleyenler</span> <span class="tab-badge">96</span>
+          </button>
+          <button class="tab-btn" onclick="setFilter('popular', this)">
+            <span>🔥 Popüler</span>
+          </button>
+        </div>
+
+        <div class="sort-control">
+          <span>Sırala:</span>
+          <select class="sort-select" onchange="sortCards(this.value)">
+            <option value="recent">En Son Etkinlik</option>
+            <option value="newest">En Yeni Eklenen</option>
+            <option value="answers">En Çok Cevaplanan</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 3 KOLON KART IZGARASI -->
+      <div class="cards-grid" id="cards-container">
+
+        <!-- Kart 1: Matematik (Çözüldü) -->
+        <article class="q-card" style="--card-color:var(--d-mat);--card-bg:var(--d-mat-bg)" data-subject="Matematik" data-status="solved" onclick="switchView('question')">
+          <div class="card-header-line">
+            <span class="subject-tag"><i></i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><path d="M4 19h16M4 5h16M7 5v14M17 5v14M11 9l4 6M15 9l-4 6"/></svg> Matematik</span>
+            <span class="exam-tag">AYT • 12. Sınıf</span>
+            <span class="status-badge solved">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="m5 13 4 4 10-10"/></svg>
+              Çözüldü
+            </span>
+          </div>
+          <h3 class="card-title">∫ x² · ln x dx integralini kısmi integrasyonla adım adım nasıl çözerim?</h3>
+          <p class="card-excerpt">x²'yi mi ln x'e mi atayacağımı karar veremiyordum. LIATE kuralını uygularken hangi fonksiyon "u" olmalı, adım adım anlatabilir misiniz?</p>
+          <div class="card-footer-meta">
+            <div class="meta-left">
+              <span class="meta-answers">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-8 8H4l2.3-2.9A8 8 0 1 1 21 12Z"/></svg>
+                3 cevap
+              </span>
+              <span class="meta-views">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/></svg>
+                128
+              </span>
+            </div>
+            <div class="meta-right">
+              <div class="avatar-stack">
+                <span style="background:#2563EB">AY</span>
+                <span style="background:#0D9488">MK</span>
+              </div>
+              <span class="meta-time">12 dk önce</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Kart 2: Fen / Fizik (Cevap Bekliyor) -->
+        <article class="q-card" style="--card-color:var(--d-fiz);--card-bg:var(--d-fiz-bg)" data-subject="Fizik" data-status="waiting" onclick="switchView('question')">
+          <div class="card-header-line">
+            <span class="subject-tag"><i></i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="subject-icon"><circle cx="12" cy="12" r="2.5" fill="currentColor"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(30 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(-30 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(90 12 12)"/></svg> Fizik</span>
+            <span class="exam-tag">LGS • 8. Sınıf</span>
+            <span class="status-badge waiting">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Cevap bekliyor
+            </span>
+          </div>
+          <h3 class="card-title">Paralel bağlı devrede bir ampul sökülünce diğerleri neden aynı parlaklıkta yanmaya devam ediyor?</h3>
+          <p class="card-excerpt">Deneyde sökülen ampul devreden çıkınca diğer kolların gerilimi neden değişmiyor, potansiyel fark mantığı nedir?</p>
+          <div class="card-footer-meta">
+            <div class="meta-left">
+              <span class="meta-answers waiting">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                Cevap bekliyor
+              </span>
+              <span class="meta-views">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/></svg>
+                34
+              </span>
+            </div>
+            <div class="meta-right">
+              <span class="meta-time">23 dk önce</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Kart 3: Biyoloji (Çözüldü & AI Çözümlü) -->
+        <article class="q-card" style="--card-color:var(--d-bio);--card-bg:var(--d-bio-bg)" data-subject="Biyoloji" data-status="solved" onclick="switchView('question')">
+          <div class="card-header-line">
+            <span class="subject-tag"><i></i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="subject-icon"><path d="M4 4c4 4 12 12 16 16M4 20c4-4 12-12 16-16M7 7l10 10M17 7L7 17M6 10h12M6 14h12"/></svg> Biyoloji</span>
+            <span class="exam-tag">TYT • 10. Sınıf</span>
+            <span class="status-badge solved">✓ Çözüldü</span>
+            <span class="status-badge ai">✨ AI Çözümlü</span>
+          </div>
+          <h3 class="card-title">Mitoz ve mayoz bölünmede kromozom sayısı değişim grafikleri nasıl çizilir?</h3>
+          <p class="card-excerpt">Anafaz ve telofaz evrelerinde kromatit ayrılması sırasında geçici olarak iki katına çıkan kromozom sayısını grafikte nasıl göstermeliyim?</p>
+          <div class="card-footer-meta">
+            <div class="meta-left">
+              <span class="meta-answers">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-8 8H4l2.3-2.9A8 8 0 1 1 21 12Z"/></svg>
+                5 cevap
+              </span>
+              <span class="meta-views">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/></svg>
+                210
+              </span>
+            </div>
+            <div class="meta-right">
+              <div class="avatar-stack">
+                <span style="background:#16A34A">EK</span>
+                <span style="background:#7C3AED">AI</span>
+              </div>
+              <span class="meta-time">45 dk önce</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Kart 4: Kimya (Çözüldü) -->
+        <article class="q-card" style="--card-color:var(--d-kim);--card-bg:var(--d-kim-bg)" data-subject="Kimya" data-status="solved" onclick="switchView('question')">
+          <div class="card-header-line">
+            <span class="subject-tag"><i></i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><path d="M10 2v7.31a2 2 0 0 1-.37 1.17l-5.32 8A2 2 0 0 0 6 21h12a2 2 0 0 0 1.69-2.52l-5.32-8A2 2 0 0 1 14 9.31V2M8.5 2h7M7 16h10"/></svg> Kimya</span>
+            <span class="exam-tag">AYT • 11. Sınıf</span>
+            <span class="status-badge solved">✓ Çözüldü</span>
+          </div>
+          <h3 class="card-title">İdeal gaz denkleminde (P·V = n·R·T) birim çevirmelerinde en sık yapılan hatalar nelerdir?</h3>
+          <p class="card-excerpt">Basıncı cmHg veya Torr verdiğinde atm'ye çevirirken R sabitini 0.082 mi yoksa 22.4/273 mü almalıyım?</p>
+          <div class="card-footer-meta">
+            <div class="meta-left">
+              <span class="meta-answers">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-8 8H4l2.3-2.9A8 8 0 1 1 21 12Z"/></svg>
+                2 cevap
+              </span>
+              <span class="meta-views">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/></svg>
+                78
+              </span>
+            </div>
+            <div class="meta-right">
+              <div class="avatar-stack">
+                <span style="background:#0D9488">BZ</span>
+              </div>
+              <span class="meta-time">1 saat önce</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Kart 5: Türkçe (Cevap Bekliyor) -->
+        <article class="q-card" style="--card-color:var(--d-tur);--card-bg:var(--d-tur-bg)" data-subject="Türkçe" data-status="waiting" onclick="switchView('question')">
+          <div class="card-header-line">
+            <span class="subject-tag"><i></i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Türkçe</span>
+            <span class="exam-tag">TYT • Dil Bilgisi</span>
+            <span class="status-badge waiting">Cevap bekliyor</span>
+          </div>
+          <h3 class="card-title">"de/da" bağlacı ile bulunma durum eki olan "-de/-da" ayrımını en pratik test etme yöntemi nedir?</h3>
+          <p class="card-excerpt">Cümleden çıkarınca anlamın daralması ile bozulması arasındaki ince çizgiyi sorularda karıştırıyorum.</p>
+          <div class="card-footer-meta">
+            <div class="meta-left">
+              <span class="meta-answers waiting">Cevap bekliyor</span>
+              <span class="meta-views">42</span>
+            </div>
+            <div class="meta-right">
+              <span class="meta-time">2 saat önce</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Kart 6: Tarih (Çözüldü) -->
+        <article class="q-card" style="--card-color:var(--d-tar);--card-bg:var(--d-tar-bg)" data-subject="Tarih" data-status="solved" onclick="switchView('question')">
+          <div class="card-header-line">
+            <span class="subject-tag"><i></i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><line x1="3" y1="21" x2="21" y2="21"/><line x1="6" y1="18" x2="6" y2="10"/><line x1="10" y1="18" x2="10" y2="10"/><line x1="14" y1="18" x2="14" y2="10"/><line x1="18" y1="18" x2="18" y2="10"/><polygon points="12 2 20 7 4 7"/></svg> Tarih</span>
+            <span class="exam-tag">AYT • İnkılap Tarihi</span>
+            <span class="status-badge solved">✓ Çözüldü</span>
+          </div>
+          <h3 class="card-title">Amasya Genelgesi'nde ilk kez milli egemenlik fikrinin yer aldığını kanıtlayan madde hangisidir?</h3>
+          <p class="card-excerpt">"Milletin bağımsızlığını yine milletin azim ve kararı kurtaracaktır" maddesinin ihtilal beyannamesi özelliği...</p>
+          <div class="card-footer-meta">
+            <div class="meta-left">
+              <span class="meta-answers">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-8 8H4l2.3-2.9A8 8 0 1 1 21 12Z"/></svg>
+                4 cevap
+              </span>
+              <span class="meta-views">156</span>
+            </div>
+            <div class="meta-right">
+              <div class="avatar-stack">
+                <span style="background:#B45309">MD</span>
+                <span style="background:#2563EB">SY</span>
+              </div>
+              <span class="meta-time">3 saat önce</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== GÖRÜNÜM 2: SORU SAYFASI ==================== -->
+  <section id="view-question" class="question-view-wrapper" style="display:none;">
+    <div class="wrap">
+
+      <!-- Kırıntı Yolu -->
+      <nav class="breadcrumbs">
+        <a href="#" onclick="switchView('home'); return false;">Ana Sayfa</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        <a href="#" onclick="filterBySubject('Matematik'); switchView('home'); return false;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="subject-icon"><path d="M4 19h16M4 5h16M7 5v14M17 5v14M11 9l4 6M15 9l-4 6"/></svg> Matematik</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        <a href="#">AYT • 12. Sınıf</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="current">İntegral</span>
+      </nav>
+
+      <!-- İki Kolonlu Esnek Düzen -->
+      <div class="question-layout">
+
+        <!-- Sol Ana Akış -->
+        <div class="question-main-stream">
+
+          <!-- Soru Başlık & Bilgi Kartı -->
+          <div class="question-header">
+            <h1 class="question-title">∫ x² · ln x dx integralini kısmi integrasyonla adım adım nasıl çözerim?</h1>
+
+            <div class="question-badges">
+              <span class="subject-tag" style="--card-color:var(--d-mat);--card-bg:var(--d-mat-bg)"><i></i>Matematik</span>
+              <span class="exam-tag">AYT</span>
+              <span class="exam-tag">12. Sınıf</span>
+              <span class="exam-tag">Kısmi İntegrasyon</span>
+              <span class="status-badge solved">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="m5 13 4 4 10-10"/></svg>
+                Çözüldü
+              </span>
+            </div>
+
+            <!-- Yazar Bilgisi -->
+            <div class="author-bar">
+              <div class="author-avatar">DK</div>
+              <div class="author-meta">
+                <div class="author-name">Deniz Karaca <span style="font-size:12px;font-weight:600;color:var(--text-muted);">(Öğrenci)</span></div>
+                <div class="author-sub">3 saat önce sordu • 128 kişi görüntüledi • 3 yanıt var</div>
+              </div>
+              <div class="author-actions">
+                <button class="btn-follow" onclick="alert('Bu sorudaki yeni cevap ve güncellemeler bildirim olarak gönderilecek.')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                  <span>Takip Et</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Soru İçeriği -->
+          <div class="question-content">
+            <p>Arkadaşlar merhaba, kısmi integrasyon konusunu yeni çalışıyorum. Aşağıdaki integralde <strong>u</strong> ve <strong>dv</strong> değişkenlerini seçerken kuralı tam oturtamadım.</p>
+            <p><em>x²</em> çarpanı cebirsel fonksiyon iken <em>ln x</em> logaritmik bir fonksiyon. LIATE sıralamasına göre hangisini önce seçmeliyiz ve formüle yerleştirirken türev-integral adımları nasıl ilerliyor? Detaylı adım adım çözebilirseniz çok sevinirim.</p>
+
+            <!-- Soru Formülü Kutusu -->
+            <div class="formula-box">
+              <span>∫ x² · ln x · dx = ?</span>
+              <button class="btn-copy-latex" onclick="copyLatex('int x^2 ln(x) dx')">LaTeX Kopyala</button>
+            </div>
+
+            <!-- Soru Kitap Fotoğrafı Önizlemesi -->
+            <div class="question-photo-card">
+              <div class="photo-preview-box" onclick="openLightbox()">
+                <!-- SVG Simüle Edilmiş Kitap Soru Görseli -->
+                <svg width="100%" height="220" viewBox="0 0 600 220" fill="none">
+                  <rect width="600" height="220" fill="#1E293B"/>
+                  <rect x="20" y="20" width="560" height="180" rx="8" fill="#0F172A" stroke="#334155" stroke-width="2"/>
+                  <text x="50" y="60" fill="#94A3B8" font-family="Plus Jakarta Sans" font-size="14" font-weight="700">ÖSYM Çıkmış Soru Benzeri • Soru 14</text>
+                  <text x="50" y="110" fill="#F8FAFC" font-family="JetBrains Mono" font-size="22" font-weight="700">∫ x² · ln(x) dx integralinin eşiti nedir?</text>
+                  <text x="50" y="150" fill="#64748B" font-family="Plus Jakarta Sans" font-size="14">A) (x³/3)ln x - x³/9 + C      B) x³ ln x - x² + C      C) (x³/3)ln x + C</text>
+                </svg>
+                <div class="photo-zoom-hint">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                  <span>Büyütmek için tıkla (Orijinal Fotoğraf)</span>
+                </div>
+              </div>
+              <div class="photo-caption">
+                <span>📷 soru-kitap-sayfa-147.jpg (12. Sınıf AYT Matematik Soru Bankası)</span>
+                <span style="color:var(--brand);cursor:pointer;" onclick="openLightbox()">Tam Ekran Gör</span>
+              </div>
+            </div>
+
+            <!-- Soru Altı Butonları -->
+            <div class="question-actions-bar">
+              <button class="btn-action active" onclick="toggleLike(this, 14)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <span class="count">14 Beğeni</span>
+              </button>
+              <button class="btn-action" onclick="document.getElementById('composer-area').focus()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span>Cevap Yaz</span>
+              </button>
+              <button class="btn-action" onclick="copyUrl()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                <span>Paylaş</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 8PX GÖRSEL AYIRICI BANT -->
+          <div class="section-divider-band"></div>
+
+          <!-- ÇÖZÜMLER VE YANITLAR BAŞLIĞI -->
+          <div class="solutions-header">
+            <h2>
+              <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/></svg>Çözümler ve Yanıtlar</span>
+              <span class="solutions-count-pill">3 Yanıt</span>
+            </h2>
+            <div class="solutions-filter-pills">
+              <span class="filter-pill-mini active">Tümü (3)</span>
+              <span class="filter-pill-mini">✓ Onaylı (1)</span>
+              <span class="filter-pill-mini">🤖 AI Çözümü</span>
+            </div>
+          </div>
+
+          <!-- CEVAP 1: DOĞRULANMIŞ EN İYİ ÇÖZÜM (VERIFIED BEST ANSWER) -->
+          <article class="answer-card verified">
+            <div class="verified-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="m5 13 4 4 10-10"/></svg>
+              <span>✓ Doğrulanmış Çözüm (Öğretmen Onaylı)</span>
+            </div>
+
+            <div class="responder-bar">
+              <div class="responder-avatar">AY</div>
+              <div class="responder-info">
+                <b>Ayşe Yılmaz <span class="verified-teacher-badge">★ Matematik Öğretmeni</span></b>
+                <span>2 saat önce yanıtladı • 34 öğrenci bu çözümü faydalı buldu</span>
+              </div>
+            </div>
+
+            <div class="question-content">
+              <p>Harika bir soru Deniz! Kısmi integrasyonda formülümüz <strong>∫ u dv = u·v − ∫ v du</strong> şeklindedir. Seçim yaparken <strong>L·I·A·T·E</strong> öncelik kuralı uygulanır:</p>
+
+              <!-- Adım Adım Çözüm Akışı -->
+              <div class="steps-flow">
+                <div class="step-row">
+                  <div class="step-num-badge">1</div>
+                  <div class="step-text">
+                    <strong>u ve dv fonksiyonlarını belirle:</strong><br>
+                    LIATE kuralına göre <em>Logaritmik (L)</em> fonksiyon, <em>Cebirsel (A)</em> fonksiyondan önce gelir. Bu yüzden:
+                    <div class="step-formula-mini">u = ln(x) &nbsp;&nbsp;|&nbsp;&nbsp; dv = x² dx</div>
+                  </div>
+                </div>
+
+                <div class="step-row">
+                  <div class="step-num-badge">2</div>
+                  <div class="step-text">
+                    <strong>Türev ve integralleri al:</strong><br>
+                    u'nun türevi: <strong>du = (1/x) dx</strong><br>
+                    dv'nin integrali: <strong>v = ∫ x² dx = x³ / 3</strong>
+                  </div>
+                </div>
+
+                <div class="step-row">
+                  <div class="step-num-badge">3</div>
+                  <div class="step-text">
+                    <strong>Kısmi integrasyon formülüne yerleştir:</strong><br>
+                    ∫ u dv = u·v − ∫ v du<br>
+                    ∫ x² · ln(x) dx = (ln x) · (x³/3) − ∫ (x³/3) · (1/x) dx
+                  </div>
+                </div>
+
+                <div class="step-row">
+                  <div class="step-num-badge">4</div>
+                  <div class="step-text">
+                    <strong>Kalan integrali sadeleştir ve hesapla:</strong><br>
+                    = (x³/3) · ln(x) − (1/3) ∫ x² dx<br>
+                    = (x³/3) · ln(x) − (1/3) · (x³/3) + C<br>
+                    = <strong>(x³/3) · ln(x) − (x³/9) + C</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sonuç Kutusu -->
+              <div class="result-banner">
+                <div class="result-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="m5 13 4 4 10-10"/></svg>
+                </div>
+                <div class="result-content">
+                  <b>ÇÖZÜM SONUCU:</b>
+                  <div class="result-math">∫ x² · ln(x) dx = (x³ / 3) · ln(x) − (x³ / 9) + C</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cevap Aksiyonları -->
+            <div class="answer-footer">
+              <button class="btn-helpful active" onclick="toggleHelpful(this, 24)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 10v11H4a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h3Zm3 11h8.2a2 2 0 0 0 2-1.6l1.3-7A2 2 0 0 0 19.5 10H14l.8-4.1A1.8 1.8 0 0 0 11.5 4.6L10 7.8V21Z"/></svg>
+                <span class="count">24 kişi faydalı buldu</span>
+              </button>
+              <button class="btn-action" onclick="alert('Cevaba yorum ekleme penceresi açıldı.')">
+                <span>💬 Yorum Yap (2)</span>
+              </button>
+              <button class="btn-action" onclick="copyUrl()">
+                <span>Paylaş</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- CEVAP 2: YAPAY ZEKA ÇÖZÜMÜ (AI SOLVER) -->
+          <article class="answer-card ai-card">
+            <div class="ai-header-badge">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/></svg>
+              <span>✨ Sorumatik AI Çözümü (Doğrulama & Alternatif Yol)</span>
+            </div>
+
+            <div class="question-content">
+              <p>Yapay zeka asistanı Ayşe Öğretmen'in çözümünü <strong>doğruladı</strong>! Ek olarak sonucun doğruluğunu türev alarak sağlamasını yapabilirsin:</p>
+              <div class="formula-box" style="margin:10px 0;font-size:15px;">
+                d/dx [(x³/3)ln x − x³/9 + C] = (3x²/3)ln x + (x³/3)(1/x) − 3x²/9 = x² ln x + x²/3 − x²/3 = <strong>x² ln x</strong> ✓
+              </div>
+              <p style="font-size:14px;color:var(--text-muted);margin-top:8px;">Türev başlangıçtaki integral fonksiyonunu verdiğinden çözüm kesinlikle doğrudur.</p>
+            </div>
+          </article>
+
+          <!-- Cevap Yazma Alanı (Composer) -->
+          <div class="composer-card">
+            <h3>Sen de Çözümünü Paylaş</h3>
+            <textarea class="composer-textarea" id="composer-area" placeholder="Adım adım açıkla, formül veya fotoğraf ekleyerek arkadaşına yardım et..."></textarea>
+            <div class="composer-toolbar">
+              <button class="tool-btn" title="Kalın"><b>B</b></button>
+              <button class="tool-btn" title="İtalik"><i>I</i></button>
+              <button class="tool-btn" title="Formül">∫</button>
+              <button class="tool-btn" title="Resim">📷</button>
+              <button class="btn-ask" style="margin-left:auto;height:38px;padding:0 20px;" onclick="alert('Cevabınız incelenmek üzere başarıyla gönderildi!')">Cevabı Gönder</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sağ Kenar Çubuğu (Sidebar) -->
+        <aside class="sidebar-column">
+
+          <!-- Benzer Sorular Paneli -->
+          <div class="side-panel">
+            <h3>
+              <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="vertical-align:-3px;margin-right:6px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Benzer Sorular</span>
+              <span style="font-size:12px;color:var(--brand);font-weight:700;">Tümü</span>
+            </h3>
+            <div class="similar-list">
+              <a class="similar-item" href="#" onclick="alert('Soru yükleniyor...'); return false;">
+                <span class="dot" style="background:var(--d-mat)"></span>
+                <div>
+                  <div class="similar-title">Belirli integralde alan hesabı hangi adımlarla yapılır?</div>
+                  <div class="similar-meta">3 cevap • ✓ Çözüldü</div>
+                </div>
+              </a>
+              <a class="similar-item" href="#" onclick="alert('Soru yükleniyor...'); return false;">
+                <span class="dot" style="background:var(--d-mat)"></span>
+                <div>
+                  <div class="similar-title">∫ ln(x) dx integralinin kısmi integrasyonla çözümü</div>
+                  <div class="similar-meta">4 cevap • ✓ Çözüldü</div>
+                </div>
+              </a>
+              <a class="similar-item" href="#" onclick="alert('Soru yükleniyor...'); return false;">
+                <span class="dot" style="background:var(--d-fiz)"></span>
+                <div>
+                  <div class="similar-title">Hareket problemlerinde ivmeden konuma integral geçişi</div>
+                  <div class="similar-meta">Cevap bekliyor • 1g önce</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Popüler Etiketler -->
+          <div class="side-panel">
+            <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="vertical-align:-3px;margin-right:6px"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Popüler Konu Etiketleri</h3>
+            <div class="quick-tags" style="justify-content:flex-start;margin-top:10px;">
+              <span class="tag-chip">İntegral</span>
+              <span class="tag-chip">Türev</span>
+              <span class="tag-chip">Limit</span>
+              <span class="tag-chip">AYT Matematik</span>
+              <span class="tag-chip">Diferansiyel</span>
+            </div>
+          </div>
+
+          <!-- Mobil Uygulama İndir CTA -->
+          <div class="side-panel app-banner">
+            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" style="vertical-align:-3px;margin-right:6px"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>Soruyu Çek, Anında Çöz!</h3>
+            <p>Sorumatik mobil uygulamasını indir, kütüphanedeki yüzbinlerce çözüme anında eriş.</p>
+            <div class="store-buttons">
+              <span class="store-btn">App Store</span>
+              <span class="store-btn">Google Play</span>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ==================== ÖNİZLEME ETKİLEŞİM PANELİ (MOCKUP CONTROLLER) ==================== -->
+<div class="preview-control-bar">
+  <button class="view-tab-btn active" id="btn-tab-home" onclick="switchView('home')">🏠 Ana Sayfa</button>
+  <button class="view-tab-btn" id="btn-tab-question" onclick="switchView('question')">📖 Soru Sayfası</button>
+  <div class="control-divider"></div>
+  <button class="device-btn active" id="btn-dev-desktop" onclick="setDevice('desktop')" title="Masaüstü (100%)">💻 Masaüstü</button>
+  <button class="device-btn" id="btn-dev-tablet" onclick="setDevice('tablet')" title="Tablet (834px)">📱 Tablet</button>
+  <button class="device-btn" id="btn-dev-mobile" onclick="setDevice('mobile')" title="Mobil (390px)">📱 Mobil</button>
+</div>
+
+<!-- ==================== GÖRSEL BÜYÜTME (LIGHTBOX MODAL) ==================== -->
+<div class="lightbox-modal" id="photo-modal" onclick="closeLightbox(event)">
+  <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox(event)">✕</button>
+    <svg width="100%" height="450" viewBox="0 0 600 350" fill="none">
+      <rect width="600" height="350" fill="#0F172A" rx="12"/>
+      <rect x="20" y="20" width="560" height="310" rx="8" fill="#1E293B" stroke="#334155" stroke-width="2"/>
+      <text x="50" y="70" fill="#94A3B8" font-family="Plus Jakarta Sans" font-size="16" font-weight="700">ÖSYM Çıkmış Soru Benzeri • Soru 14 (Yüksek Çözünürlüklü Tarama)</text>
+      <text x="50" y="140" fill="#F8FAFC" font-family="JetBrains Mono" font-size="28" font-weight="700">∫ x² · ln(x) dx integralinin eşiti nedir?</text>
+      <text x="50" y="210" fill="#CBD5E1" font-family="Plus Jakarta Sans" font-size="18">A) (x³/3)ln x − x³/9 + C</text>
+      <text x="50" y="250" fill="#CBD5E1" font-family="Plus Jakarta Sans" font-size="18">B) x³ ln x − x² + C</text>
+      <text x="50" y="290" fill="#CBD5E1" font-family="Plus Jakarta Sans" font-size="18">C) (x³/3)ln x + C</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ==================== ETKİLEŞİM JAVASCRIPT KODLARI ==================== -->
+<script>
+  // Görünüm Değiştirici (Home <-> Question)
+  function switchView(viewName) {
+    const homeView = document.getElementById('view-home');
+    const questionView = document.getElementById('view-question');
+    const tabHome = document.getElementById('btn-tab-home');
+    const tabQuestion = document.getElementById('btn-tab-question');
+
+    if (viewName === 'home') {
+      homeView.style.display = 'block';
+      questionView.style.display = 'none';
+      tabHome.classList.add('active');
+      tabQuestion.classList.remove('active');
+    } else {
+      homeView.style.display = 'none';
+      questionView.style.display = 'block';
+      tabHome.classList.remove('active');
+      tabQuestion.classList.add('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Koyu / Açık Tema Değiştirici
+  function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', nextTheme);
+  }
+
+  // Cihaz Genişlik Simülatörü
+  function setDevice(device) {
+    const viewport = document.getElementById('app-viewport');
+    document.querySelectorAll('.device-btn').forEach(btn => btn.classList.remove('active'));
+
+    if (device === 'tablet') {
+      viewport.className = 'sim-tablet';
+      document.getElementById('btn-dev-tablet').classList.add('active');
+    } else if (device === 'mobile') {
+      viewport.className = 'sim-mobile';
+      document.getElementById('btn-dev-mobile').classList.add('active');
+    } else {
+      viewport.className = '';
+      document.getElementById('btn-dev-desktop').classList.add('active');
+    }
+  }
+
+  // Ders Filtreleme
+  function filterBySubject(subj) {
+    document.querySelectorAll('.sub-pill').forEach(pill => {
+      pill.classList.toggle('active', pill.textContent.includes(subj) || (subj === 'all' && pill.textContent.includes('Tüm')));
+    });
+
+    const cards = document.querySelectorAll('.q-card');
+    cards.forEach(card => {
+      if (subj === 'all' || card.getAttribute('data-subject') === subj) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Durum Filtresi (Çözüldü / Bekliyor)
+  function setFilter(status, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cards = document.querySelectorAll('.q-card');
+    cards.forEach(card => {
+      if (status === 'all') {
+        card.style.display = 'flex';
+      } else if (card.getAttribute('data-status') === status) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Canlı Arama
+  function handleSearch(query) {
+    const q = query.toLowerCase().trim();
+    const cards = document.querySelectorAll('.q-card');
+    cards.forEach(card => {
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(q) ? 'flex' : 'none';
+    });
+  }
+
+  // Etiket Filtresi
+  function filterByTag(tag) {
+    handleSearch(tag);
+  }
+
+  // Beğeni Butonu
+  function toggleLike(btn, current) {
+    btn.classList.toggle('active');
+    const countSpan = btn.querySelector('.count');
+    if (btn.classList.contains('active')) {
+      countSpan.textContent = (current + 1) + ' Beğeni';
+    } else {
+      countSpan.textContent = current + ' Beğeni';
+    }
+  }
+
+  // Faydalı Buldum Butonu
+  function toggleHelpful(btn, count) {
+    btn.classList.toggle('active');
+    const span = btn.querySelector('.count');
+    if (btn.classList.contains('active')) {
+      span.textContent = (count + 1) + ' kişi faydalı buldu (Teşekkürler!)';
+    } else {
+      span.textContent = count + ' kişi faydalı buldu';
+    }
+  }
+
+  // Lightbox Modal
+  function openLightbox() {
+    document.getElementById('photo-modal').classList.add('active');
+  }
+  function closeLightbox(e) {
+    if (e.target.id === 'photo-modal' || e.target.classList.contains('lightbox-close')) {
+      document.getElementById('photo-modal').classList.remove('active');
+    }
+  }
+
+  // LaTeX Kopyalama
+  function copyLatex(formula) {
+    navigator.clipboard.writeText(formula).then(() => {
+      alert('LaTeX formülü panoya kopyalandı:
+' + formula);
+    });
+  }
+
+  // URL Kopyalama
+  function copyUrl() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      alert('Soru bağlantısı panoya kopyalandı!');
+    });
+  }
+
+  // Soru Sor Modal
+  function openAskModal() {
+    const q = prompt('Sorunun başlığını veya kısa özetini yazın:');
+    if (q) {
+      alert('Tebrikler! "' + q + '" sorunuz topluluğa ve yapay zekaya iletildi.');
+    }
+  }
+</script>
+
+</body>
+</html>
