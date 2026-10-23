@@ -319,7 +319,18 @@ textarea:focus-visible {
         }
 
         .topic-statuses {
+          align-items: center !important;
+          display: inline-flex !important;
           margin-right: 4px;
+          vertical-align: middle !important;
+
+          .topic-status,
+          .unread-indicator {
+            align-items: center !important;
+            display: inline-flex !important;
+            vertical-align: middle !important;
+          }
+
           svg {
             color: var(--sk-brand);
           }
@@ -346,6 +357,60 @@ textarea:focus-visible {
           color: var(--sk-brand) !important;
           font-weight: 600 !important;
           margin-left: 4px !important;
+        }
+      }
+    }
+  }
+
+  // Resim Önizlemesi (Thumbnail) Olan Kartlarda 2 Sütunlu Yerleşim
+  .topic-list-item.has-thumbnail {
+    .main-link {
+      align-items: start !important;
+      display: grid !important;
+      grid-template-columns: 1fr auto !important;
+      grid-template-rows: auto auto auto !important;
+
+      .link-bottom-line {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+      }
+
+      .link-top-line {
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+      }
+
+      .topic-excerpt,
+      .excerpt,
+      p.excerpt {
+        grid-column: 1 !important;
+        grid-row: 3 !important;
+      }
+
+      .sk-topic-thumb-link {
+        border: 1.5px solid var(--sk-line) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06) !important;
+        display: block !important;
+        flex-shrink: 0 !important;
+        grid-column: 2 !important;
+        grid-row: 1 / span 3 !important;
+        height: 68px !important;
+        margin-left: 12px !important;
+        overflow: hidden !important;
+        transition: border-color 0.18s ease, transform 0.18s ease !important;
+        width: 68px !important;
+
+        img {
+          display: block !important;
+          height: 100% !important;
+          object-fit: cover !important;
+          width: 100% !important;
+        }
+
+        &:hover {
+          border-color: var(--sk-brand) !important;
+          transform: scale(1.04) !important;
         }
       }
     }

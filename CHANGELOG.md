@@ -2,6 +2,16 @@
 
 Biçim: [Keep a Changelog](https://keepachangelog.com/tr/) · Sürümleme: [SemVer](https://semver.org/lang/tr/)
 
+## [1.2.3] — 2026-10-23
+
+### Eklendi
+- **Soru Görseli Önizleme (Thumbnail) Düzeni:** Kartlarda soru görseli bulunduğunda masaüstünde 68x68px, mobilde 58x58px 12px yuvarlak köşeli modern önizleme kutucuğu entegre edildi.
+- **Soru Sayfası Görsel İyileştirmeleri:** Soru fotoğraflarına 12px köşe yuvarlama, sınır çizgisi ve zoom imleci eklendi.
+
+### Düzeltildi
+- **Mobil Kategori Rozeti Sıralaması:** Mobilde kategori ve etiketler (`.topic-item-stats`) flex re-ordering ile başlığın en üstüne taşındı.
+- **Yetim Mavi Nokta:** Okunmamış konu durum göstergesi (`.topic-statuses`, `.unread-indicator`) satır içi (inline-flex) hizalanarak başlığın altına tek başına düşmesi engellendi.
+
 ## [1.2.2] — 2026-10-23
 
 ### Düzeltildi

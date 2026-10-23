@@ -1,5 +1,5 @@
 // =========================================================================
-// Sorumatik Tema — Mobil İnce Ayarları (≤700px) (v1.2.2)
+// Sorumatik Tema — Mobil İnce Ayarları (≤700px) (v1.2.3)
 // =========================================================================
 
 // Ayarlar / Standalone Sass & CI Derleme Fallback Değerleri
@@ -15,85 +15,158 @@ $sk_mobil_ozet: false !default;
   gap: 12px !important;
 }
 
-// Mobil Kart Düzeni
+// Mobil Kart Düzeni (Mockup Birebir: Kategori Üstte, Başlık & Resim Ortada)
 .mobile-view .topic-list-item,
 .mobile-device .topic-list-item,
 .topic-list-item {
-  display: block !important;
-  padding: 16px 14px 12px !important;
-  position: relative !important;
-  border-radius: var(--sk-radius, 16px) !important;
   background: var(--sk-card, #FFFFFF) !important;
   border: 1.5px solid var(--sk-line, #E2E8F0) !important;
+  border-radius: var(--sk-radius, 16px) !important;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+  display: block !important;
+  overflow: hidden !important;
+  padding: 16px 14px 12px !important;
+  position: relative !important;
 
   .topic-list-data {
+    align-items: flex-start !important;
+    background: transparent !important;
+    border: none !important;
     display: flex !important;
     gap: 12px !important;
-    align-items: flex-start !important;
-    border: none !important;
     padding: 0 !important;
-    background: transparent !important;
     width: 100% !important;
   }
 
+  // Sol Yazar Avatarı
   .pull-left {
     flex-shrink: 0 !important;
+    margin-top: 2px !important;
+
     .avatar {
-      width: 36px !important;
-      height: 36px !important;
       border-radius: 50% !important;
+      height: 36px !important;
+      width: 36px !important;
     }
   }
 
+  // Kart İçerik Alanı: Dikey Flex
   .topic-item-metadata {
     display: flex !important;
-    flex-direction: column !important;
     flex: 1 !important;
+    flex-direction: column !important;
     min-width: 0 !important;
   }
 
-  .main-link .title,
-  .main-link .raw-topic-link {
-    font-size: 15.5px !important;
-    font-weight: 750 !important;
-    line-height: 1.38 !important;
-    color: var(--sk-ink, #0F172A) !important;
-    padding-right: 40px !important;
-  }
-
+  // 1. Sıra: Kategori ve Etiketler EN ÜSTTE
   .topic-item-stats {
-    display: flex !important;
     align-items: center !important;
+    border-top: none !important;
+    display: flex !important;
     justify-content: space-between !important;
-    margin-top: 8px !important;
-    padding-top: 8px !important;
-    border-top: 1px solid var(--sk-line, #F1F5F9) !important;
+    margin-bottom: 6px !important;
+    margin-top: 0 !important;
+    order: 1 !important;
+    padding-right: 36px !important; // Yanıt rozetine taşmayı önler
+    padding-top: 0 !important;
   }
 
   .topic-item-stats__category-tags {
-    display: flex !important;
     align-items: center !important;
-    gap: 6px !important;
+    display: flex !important;
     flex-wrap: wrap !important;
+    gap: 6px !important;
   }
 
+  .badge-category__wrapper .badge-category {
+    border-radius: 999px !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    padding: 2px 8px !important;
+  }
+
+  // 2. Sıra: Soru Başlığı ve Resim Önizlemesi ORTADA
+  .main-link {
+    align-items: flex-start !important;
+    display: flex !important;
+    gap: 8px !important;
+    justify-content: space-between !important;
+    order: 2 !important;
+    width: 100% !important;
+
+    .title,
+    .raw-topic-link {
+      color: var(--sk-ink, #0F172A) !important;
+      flex: 1 !important;
+      font-size: 15.5px !important;
+      font-weight: 750 !important;
+      letter-spacing: -0.2px !important;
+      line-height: 1.38 !important;
+      min-width: 0 !important;
+      text-decoration: none !important;
+    }
+
+    // Yetim Mavi Nokta ve Okunmamış Durum İkonları
+    .topic-statuses {
+      align-items: center !important;
+      display: inline-flex !important;
+      margin-right: 4px !important;
+      vertical-align: middle !important;
+
+      .topic-status,
+      .unread-indicator {
+        align-items: center !important;
+        display: inline-flex !important;
+        vertical-align: middle !important;
+      }
+    }
+  }
+
+  // Resim Önizlemesi Olan Kartlarda Thumbnail Boyutu
+  .sk-topic-thumb-link {
+    border: 1.5px solid var(--sk-line, #E2E8F0);
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
+    display: block;
+    flex-shrink: 0;
+    height: 58px;
+    margin-left: 8px;
+    overflow: hidden;
+    width: 58px;
+
+    img {
+      display: block;
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  // Sağ Üst: Yanıt Sayısı Rozeti
   .pull-right {
     position: absolute !important;
     right: 14px !important;
     top: 14px !important;
 
     .posts-map .badge-posts {
+      align-items: center !important;
       background: var(--sk-brand-tint, #EFF6FF) !important;
+      border-radius: 999px !important;
       color: var(--sk-brand, #2563EB) !important;
+      display: inline-flex !important;
       font-size: 12px !important;
       font-weight: 700 !important;
       padding: 3px 8px !important;
-      border-radius: 999px !important;
-      display: inline-flex !important;
-      align-items: center !important;
       text-decoration: none !important;
     }
+  }
+
+  // Zaman Bilgisi
+  .num.activity.last {
+    color: var(--sk-ink-faint, #94A3B8) !important;
+    font-size: 12px !important;
+    margin-top: 4px !important;
+    white-space: nowrap !important;
   }
 }
 
@@ -116,4 +189,3 @@ body {
 .google-adsense {
   min-height: 50px;
 }
-
