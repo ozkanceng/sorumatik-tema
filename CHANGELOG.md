@@ -2,6 +2,12 @@
 
 Biçim: [Keep a Changelog](https://keepachangelog.com/tr/) · Sürümleme: [SemVer](https://semver.org/lang/tr/)
 
+## [1.2.2] — 2026-10-23
+
+### Düzeltildi
+- **GitHub Actions SCSS Derleme Hatası (10 sn Hatası):** Standalone Dart Sass derleyicisinde `settings.yml` ayar değişkenlerinin tanımsız kalmasını önlemek için `common/common.scss` ve `mobile/mobile.scss` dosyalarına `!default` direktifli fallback değişkenleri eklendi.
+- **Mockup Birebir Kart Anatomisi:** Konu kartları 2 satırlı CSS Grid düzenine geçirildi. Kategori ve etiketler (`.link-bottom-line`) flex `order: 1` ile en üste, başlık (`.link-top-line`) `order: 2` ile ortaya, özet (`.topic-excerpt`) `order: 3` ile alta alındı. Yanıt sayısı ve avatar yığını tek hizada alt meta çubuğunda birleştirildi.
+
 ## [1.2.1] — 2026-10-23
 
 ### Düzeltildi

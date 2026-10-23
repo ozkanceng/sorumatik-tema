@@ -1,6 +1,12 @@
 // =========================================================================
-// Sorumatik Tema — Mobil İnce Ayarları (≤700px)
+// Sorumatik Tema — Mobil İnce Ayarları (≤700px) (v1.2.2)
 // =========================================================================
+
+// Ayarlar / Standalone Sass & CI Derleme Fallback Değerleri
+$sk_grid_acik: true !default;
+$sk_kart_animasyon: true !default;
+$sk_adim_stili: true !default;
+$sk_mobil_ozet: false !default;
 
 .topic-list tbody,
 .topic-list .topic-list-body {
@@ -9,10 +15,11 @@
 }
 
 .topic-list-item {
-  padding: 14px 14px 10px;
+  padding: 16px 14px 12px !important;
 
-  .main-link .title {
-    font-size: 16px;
+  .main-link .title,
+  .main-link .raw-topic-link {
+    font-size: 16px !important;
   }
 }
 
@@ -35,3 +42,4 @@ body {
 .google-adsense {
   min-height: 50px;
 }
+

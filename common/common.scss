@@ -1,8 +1,14 @@
 // =========================================================================
-// Sorumatik Tema — Ortak Stiller (v1.2.1)
+// Sorumatik Tema — Ortak Stiller (v1.2.2)
 // Discourse temaları yalnızca common.scss, desktop.scss ve mobile.scss
 // dosyalarını derlediğinden tüm ortak kurallar tek dosyada toplanmıştır.
 // =========================================================================
+
+// Ayarlar / Standalone Sass & CI Derleme Fallback Değerleri
+$sk_grid_acik: true !default;
+$sk_kart_animasyon: true !default;
+$sk_adim_stili: true !default;
+$sk_mobil_ozet: false !default;
 
 :root {
   // ---- Yüzeyler Discourse renk şemasına bağlı (Koyu Mod Güvencesi - T2) ----
@@ -180,28 +186,32 @@ textarea:focus-visible {
   .topic-list tbody,
   .topic-list .topic-list-body {
     display: grid !important;
-    gap: 18px;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    padding: 4px 0 24px;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    padding: 8px 0 32px;
     border: none;
   }
 
-  // Kart Anatomisi
+  // Kart Anatomisi — 2026 Mockup Standardı
   .topic-list-item {
     background: var(--sk-card);
     border: 1.5px solid var(--sk-line);
     border-radius: var(--sk-radius);
     box-shadow: var(--sk-shadow);
-    display: flex !important;
-    flex-direction: column;
-    gap: 10px;
-    padding: 16px 16px 12px;
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    grid-template-rows: auto auto !important;
+    gap: 12px 0 !important;
+    padding: 20px 20px 16px;
     position: relative;
     width: 100%;
     box-sizing: border-box;
-    transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+    overflow: hidden;
+    transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
-    // Sol 4px renk şeridi
+    // Sol 4.5px ders renk şeridi
     &::before {
       background: var(--category-badge-color, var(--sk-brand));
       bottom: 0;
@@ -209,69 +219,132 @@ textarea:focus-visible {
       left: 0;
       position: absolute;
       top: 0;
-      width: 4px;
+      width: 4.5px;
+      transition: width 0.18s ease;
     }
 
     &:hover {
       border-color: var(--sk-brand-line);
       box-shadow: var(--sk-shadow-hover);
+      &::before {
+        width: 6px;
+      }
     }
   }
 
   @if $sk_kart_animasyon {
     .topic-list-item:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
     }
   }
 
-  // Kart İçi: Başlık, Kategori, Etiketler, Özet
+  // Kart İçi: Kategori en üstte, Başlık ortada, Özet altta (Mockup Sıralaması)
   .topic-list-item {
     .main-link {
-      display: block;
-      width: 100%;
-      border: none;
-      padding: 0;
+      grid-column: 1 / -1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100% !important;
+      border: none !important;
+      padding: 0 !important;
+      background: transparent !important;
 
-      .title,
-      .raw-topic-link {
-        color: var(--sk-ink);
-        font-size: 17px;
-        font-weight: 700;
-        letter-spacing: -0.2px;
-        line-height: 1.38;
-        text-decoration: none;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+      // 1. Sıra: Kategori ve Etiketler
+      .link-bottom-line {
+        order: 1 !important;
+        margin: 0 0 10px 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        flex-wrap: wrap !important;
 
-        &:hover {
-          color: var(--sk-brand);
-          text-decoration: none;
+        .badge-category__wrapper {
+          .badge-category {
+            font-size: 12.5px !important;
+            font-weight: 700 !important;
+            padding: 3px 10px !important;
+            border-radius: 999px !important;
+          }
+        }
+
+        .discourse-tags {
+          display: inline-flex !important;
+          gap: 4px !important;
+          list-style: none !important;
+          margin: 0 !important;
+          padding: 0 !important;
+
+          .discourse-tag {
+            font-size: 11.5px !important;
+            font-weight: 600 !important;
+            color: var(--sk-ink-faint) !important;
+            background: var(--sk-bg) !important;
+            border: 1px solid var(--sk-line) !important;
+            padding: 2px 8px !important;
+            border-radius: 999px !important;
+            text-decoration: none !important;
+            &:hover {
+              color: var(--sk-brand) !important;
+              border-color: var(--sk-brand-line) !important;
+            }
+          }
         }
       }
-    }
 
-    .link-bottom-line {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 6px;
-    }
+      // 2. Sıra: Soru Başlığı (17.5px, 2 satır clamp)
+      .link-top-line {
+        order: 2 !important;
+        margin: 0 0 8px 0 !important;
+        display: block !important;
 
-    .topic-excerpt,
-    .excerpt,
-    p.excerpt {
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      color: var(--sk-ink-soft);
-      display: -webkit-box;
-      font-size: 14.5px;
-      line-height: 1.55;
-      line-clamp: 2;
-      margin-top: 6px;
-      overflow: hidden;
+        .title,
+        .raw-topic-link {
+          color: var(--sk-ink) !important;
+          font-size: 17.5px !important;
+          font-weight: 750 !important;
+          letter-spacing: -0.2px !important;
+          line-height: 1.4 !important;
+          text-decoration: none !important;
+          display: -webkit-box !important;
+          -webkit-line-clamp: 2 !important;
+          -webkit-box-orient: vertical !important;
+          overflow: hidden !important;
+
+          &:hover {
+            color: var(--sk-brand) !important;
+          }
+        }
+
+        .topic-statuses {
+          margin-right: 4px;
+          svg {
+            color: var(--sk-brand);
+          }
+        }
+      }
+
+      // 3. Sıra: Soru Özeti
+      .topic-excerpt,
+      .excerpt,
+      p.excerpt {
+        order: 3 !important;
+        -webkit-box-orient: vertical !important;
+        -webkit-line-clamp: 2 !important;
+        color: var(--sk-ink-soft) !important;
+        display: -webkit-box !important;
+        font-size: 14.5px !important;
+        line-height: 1.55 !important;
+        line-clamp: 2 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        text-decoration: none !important;
+
+        .topic-excerpt-more {
+          color: var(--sk-brand) !important;
+          font-weight: 600 !important;
+          margin-left: 4px !important;
+        }
+      }
     }
   }
 
@@ -279,42 +352,60 @@ textarea:focus-visible {
   .topic-list-item {
     .posts-map,
     .posters,
-    .age {
+    .age,
+    .views {
       border: none;
       padding: 0;
       margin: 0;
+      background: transparent;
     }
 
+    // Sol Taraf: Cevap Sayısı
     .num.posts-map,
     .posts-map {
-      margin-top: auto;
-      border-top: 1px solid var(--sk-line);
-      padding-top: 10px;
+      grid-column: 1 !important;
+      grid-row: 2 !important;
+      border-top: 1px solid var(--sk-line) !important;
+      padding-top: 12px !important;
       display: flex !important;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--sk-brand);
+      align-items: center !important;
+      gap: 6px !important;
+      font-size: 13.5px !important;
+      font-weight: 700 !important;
+      color: var(--sk-brand) !important;
+
+      .badge-posts {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 5px !important;
+        color: var(--sk-brand) !important;
+        text-decoration: none !important;
+        font-weight: 700 !important;
+        font-size: 13.5px !important;
+      }
     }
 
+    // Sağ Taraf: Avatar Yığını
     .posters {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      margin-left: auto;
-      padding-right: 8px;
+      grid-column: 2 !important;
+      grid-row: 2 !important;
+      border-top: 1px solid var(--sk-line) !important;
+      padding-top: 12px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      gap: 4px !important;
 
       .avatar {
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        border: 2px solid var(--sk-card);
-        margin-left: -6px;
+        width: 26px !important;
+        height: 26px !important;
+        border-radius: 50% !important;
+        border: 2px solid var(--sk-card) !important;
+        margin-left: -7px !important;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08) !important;
       }
       a:first-child .avatar {
-        margin-left: 0;
+        margin-left: 0 !important;
       }
     }
 
@@ -325,8 +416,9 @@ textarea:focus-visible {
     }
 
     .views,
-    .likes {
-      display: none;
+    .likes,
+    .activity {
+      display: none !important;
     }
   }
 
