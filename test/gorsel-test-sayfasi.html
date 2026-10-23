@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Sorumatik Tema — Görsel Test Sayfası</title>
+<style>
+/* ===== TEST SAYFASI İSKELETİ (temanın parçası değildir) ===== */
+body { margin: 0; font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+.sk-stage { width: 1200px; zoom: 0.45; background: #F4F7FB; padding: 10px 0 40px; }
+.sk-note { background: #17253F; color: #fff; padding: 10px 18px; font-size: 15px; margin: 0 0 14px; border-radius: 10px; }
+.sk-header { background: rgba(255,255,255,.92); border-bottom: 1px solid #E2E9F2; padding: 14px 24px; display: flex; gap: 16px; align-items: center; margin-bottom: 20px; }
+.sk-header b { font-size: 20px; color: #17253F; }
+.sk-header b em { font-style: normal; color: #1D5BD6; }
+.sk-search { flex: 1; max-width: 480px; background: #F4F7FB; border: 1.5px solid #C9D5E5; border-radius: 12px; padding: 9px 14px; color: #76839B; }
+.sk-btn { background: #1D5BD6; color: #fff; border-radius: 9px; padding: 9px 16px; font-weight: 700; }
+h2.sk-sec { color: #17253F; margin: 34px 24px 12px; }
+.sk-main { padding: 0 24px; }
+table { border-collapse: collapse; }
+.link-top-line, .link-bottom-line { display: block; }
+</style>
+<style>
+/* ===== DERLENEN TEMA CSS'İ (common + topic-list + topic-post + desktop) ===== */
+/* ===== common/common.scss ===== */
+:root { --sk-ink: #17253F; --sk-ink-soft: #4C5C77; --sk-ink-faint: #76839B; --sk-bg: #F4F7FB; --sk-card: #FFFFFF; --sk-line: #E2E9F2; --sk-line-strong: #C9D5E5; --sk-brand: #1D5BD6; --sk-brand-dark: #1647A8; --sk-brand-tint: #EAF1FC; --sk-focus: #7FA6EE; --sk-green: #157A45; --sk-green-tint: #E7F6EC; --sk-green-line: #BFE3CC; --sk-amber: #96590A; --sk-amber-tint: #FDF2DD; --sk-radius: 14px; --sk-radius-sm: 9px; --sk-shadow: 0 1px 2px rgba(23, 37, 63, 0.05), 0 8px 22px -10px rgba(23, 37, 63, 0.10); --sk-shadow-hover: 0 2px 4px rgba(23, 37, 63, 0.06), 0 14px 30px -12px rgba(29, 91, 214, 0.18); --sk-d-matematik: #1D5BD6; --sk-d-fizik: #6D3AD6; --sk-d-kimya: #0E8F80; --sk-d-biyoloji: #3A8A46; --sk-d-turkce: #D14A2B; --sk-d-tarih: #A26414; --sk-d-cografya: #0E7490; --sk-d-ingilizce: #B0398E; }
+html { background-color: var(--sk-bg); }
+body { color: var(--sk-ink); font-size: 16px; line-height: 1.55; }
+.cooked { color: var(--sk-ink); font-size: 17px; line-height: 1.68; }
+.cooked p { margin-bottom: 14px; }
+#topic-title .fancy-title { color: var(--sk-ink); font-size: 26px; font-weight: 800; letter-spacing: -0.4px; line-height: 1.3; }
+.d-header { background-color: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--sk-line); box-shadow: none; }
+.btn { border-radius: var(--sk-radius-sm); }
+.btn-primary { background: var(--sk-brand); }
+.btn-primary:hover, .btn-primary:focus { background: var(--sk-brand-dark); }
+a:focus-visible, button:focus-visible, .btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { border-radius: 4px; outline: 3px solid var(--sk-focus); outline-offset: 2px; }
+.badge-category__wrapper .badge-category { border-radius: 999px; font-size: 13px; font-weight: 700; padding: 3px 10px; }
+.discourse-tag { background: var(--sk-card); border: 1px solid var(--sk-line); border-radius: 999px; color: var(--sk-ink-soft); font-size: 13px; font-weight: 600; padding: 3px 10px; }
+.discourse-tag:hover { border-color: var(--sk-brand); color: var(--sk-brand); text-decoration: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* ===== common/topic-list.scss ===== */
+.topic-list { border: 0; display: block; }
+.topic-list thead { display: none; }
+.topic-list-body { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); padding: 4px 0 24px; }
+.topic-list-item { background: var(--sk-card); border: 1.5px solid var(--sk-line); border-radius: var(--sk-radius); box-shadow: var(--sk-shadow); display: flex; flex-direction: column; overflow: hidden; padding: 16px 16px 10px; position: relative; transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease; }
+.topic-list-item::before { background: var(--sk-brand); bottom: 0; content: ""; left: 0; position: absolute; top: 0; width: 4px; }
+.topic-list-item:hover { border-color: #BCD0F0; box-shadow: var(--sk-shadow-hover); transform: translateY(-3px); }
+.topic-list-item td { border-top: 0; display: block; padding: 0; }
+.topic-list-item .main-link { order: 1; }
+.topic-list-item td.posts-map { border-top: 1px solid var(--sk-line); color: var(--sk-ink-faint); font-size: 13.5px; font-weight: 600; margin-top: auto; order: 2; padding-top: 12px; }
+.topic-list-item td.posters { align-items: center; display: flex; gap: 4px; order: 3; padding-top: 8px; }
+.topic-list-item td.age { color: var(--sk-ink-faint); font-size: 13px; order: 4; padding: 4px 0 2px; }
+.topic-list-item td.views, .topic-list-item td.likes { display: none; }
+.topic-list .posters .avatar { border-radius: 50%; height: 26px; width: 26px; }
+.topic-list .main-link .title, .topic-list .main-link .raw-topic-link { color: var(--sk-ink); font-size: 17px; font-weight: 700; letter-spacing: -0.2px; line-height: 1.38; text-decoration: none; }
+.topic-list .main-link .title:hover, .topic-list .main-link .raw-topic-link:hover { color: var(--sk-brand); text-decoration: none; }
+.topic-list-item.visited .main-link .title { color: var(--sk-ink-soft); }
+.topic-list .topic-excerpt { -webkit-box-orient: vertical; -webkit-line-clamp: 2; color: var(--sk-ink-soft); display: -webkit-box; font-size: 14.5px; line-height: 1.55; line-clamp: 2; margin-top: 6px; overflow: hidden; }
+.category-matematik.topic-list-item::before, .category-matematik::before { background: var(--sk-d-matematik); }
+.category-fizik.topic-list-item::before, .category-fizik::before { background: var(--sk-d-fizik); }
+.category-kimya.topic-list-item::before, .category-kimya::before { background: var(--sk-d-kimya); }
+.category-biyoloji.topic-list-item::before, .category-biyoloji::before { background: var(--sk-d-biyoloji); }
+.category-turkce.topic-list-item::before, .category-turkce::before { background: var(--sk-d-turkce); }
+.category-tarih.topic-list-item::before, .category-tarih::before { background: var(--sk-d-tarih); }
+.category-cografya.topic-list-item::before, .category-cografya::before { background: var(--sk-d-cografya); }
+.category-ingilizce.topic-list-item::before, .category-ingilizce::before { background: var(--sk-d-ingilizce); }
+.more-topics__lists .topic-list-body, .suggested-topics .topic-list-body { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+/* ===== common/topic-post.scss ===== */
+.topic-map { background: var(--sk-card); border: 1.5px solid var(--sk-line); border-radius: var(--sk-radius); box-shadow: var(--sk-shadow); }
+article.accepted-answer .topic-body { background: var(--sk-card); box-shadow: inset 4px 0 0 var(--sk-green); }
+.cooked ol { counter-reset: sk-adim; list-style: none; margin: 16px 0; padding-left: 0; }
+.cooked ol > li { counter-increment: sk-adim; margin-bottom: 12px; padding-left: 40px; position: relative; }
+.cooked ol > li::before { align-items: center; background: var(--sk-brand-tint); border-radius: 8px; color: var(--sk-brand); content: counter(sk-adim); display: inline-flex; font-size: 13.5px; font-weight: 700; height: 26px; justify-content: center; left: 0; position: absolute; top: 1px; width: 26px; }
+.cooked .math, .cooked .katex-display { background: var(--sk-bg); border: 1px solid var(--sk-line); border-radius: 10px; margin: 14px 0; overflow-x: auto; padding: 12px 16px; }
+.cooked blockquote { background: var(--sk-bg); border-left: 4px solid var(--sk-line-strong); border-radius: var(--sk-radius-sm); }
+.cooked pre { border: 1px solid var(--sk-line); border-radius: var(--sk-radius-sm); }
+.d-editor-textarea-wrapper, .d-editor-container .d-editor-input { border-radius: var(--sk-radius-sm); }
+.more-topics__title, .suggested-topics .suggested-topics-title { font-weight: 800; letter-spacing: -0.3px; }
+
+/* ===== desktop/desktop.scss ===== */
+#main-outlet { margin-inline: auto; max-width: 1110px; }
+.list-controls { margin-bottom: 18px; }
+.d-header-wrap .d-header { box-shadow: none; }
+
+</style>
+</head>
+<body>
+<div class="sk-stage">
+  <div class="sk-note">Sorumatik Tema görsel test sayfası — Discourse işaretlemesi taklit edilmiş, tema CSS'i derlenip gömülmüştür. (Görüntü %45 ölçekli, 1200px sahne)</div>
+
+  <div class="sk-header"><b>soru<em>matik</em></b><div class="sk-search">Soru, konu veya ders ara…</div><span class="sk-btn">Soru Sor</span></div>
+
+  <h2 class="sk-sec">1. Ana sayfa — kart ızgarası (1200px sahne: 3 kolon)</h2>
+  <div class="sk-main">
+    <table class="topic-list">
+      <thead><tr><th>Konu</th><th>Kullanıcılar</th><th>Cevaplar</th><th>Görüntülenme</th><th>Etkinlik</th></tr></thead>
+      <tbody class="topic-list-body"><tr class="topic-list-item category-matematik"><td class="main-link"><span class="link-top-line"><a class="title raw-link raw-topic-link" href="#">∫ x² · ln x dx integralini kısmi integrasyonla adım adım nasıl çözerim?</a></span><span class="link-bottom-line"><span class="badge-category__wrapper" style="--category-badge-color:#1D5BD6"><span class="badge-category" style="color:#1D5BD6"><span class="badge-category__name">Matematik</span></span></span><a class="discourse-tag" href="#">ayt</a><span class="topic-excerpt">x²'yi mi ln x'e mi atayacağımı karar veremiyordum. LIATE kuralında hangi fonksiyon &quot;u&quot; olmalı?</span></span></td><td class="posters topic-posters"><a href="#"><span class="avatar" style="background:#1D5BD6;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">AY</span></a><a href="#"><span class="avatar" style="background:#0E8F80;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">MK</span></a></td><td class="num posts-map posts"><span class="badge-posts">3</span> cevap</td><td class="num views"><span>128</span></td><td class="num age">12s</td></tr><tr class="topic-list-item category-fizik"><td class="main-link"><span class="link-top-line"><a class="title raw-link raw-topic-link" href="#">Eğik atışta menzil formülü v²·sin2α / g nasıl türetilir?</a></span><span class="link-bottom-line"><span class="badge-category__wrapper" style="--category-badge-color:#6D3AD6"><span class="badge-category" style="color:#6D3AD6"><span class="badge-category__name">Fizik</span></span></span><a class="discourse-tag" href="#">ayt</a><span class="topic-excerpt">Formülü ezberlemek istemiyorum, sınavda türetebilmek için hangi yolu izlemeliyim?</span></span></td><td class="posters topic-posters"><a href="#"><span class="avatar" style="background:#6D3AD6;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">OT</span></a><a href="#"><span class="avatar" style="background:#0E8F80;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">NB</span></a></td><td class="num posts-map posts"><span class="badge-posts">4</span> cevap</td><td class="num views"><span>128</span></td><td class="num age">2s</td></tr><tr class="topic-list-item category-biyoloji visited"><td class="main-link"><span class="link-top-line"><a class="title raw-link raw-topic-link" href="#">Mitoz ve mayozu karıştırmadan ayırt etmenin kolay bir yolu var mı?</a></span><span class="link-bottom-line"><span class="badge-category__wrapper" style="--category-badge-color:#3A8A46"><span class="badge-category" style="color:#3A8A46"><span class="badge-category__name">Biyoloji</span></span></span><a class="discourse-tag" href="#">tyt</a><span class="topic-excerpt">Kromozom sayılarını hep ters hatırlıyorum. Hangi ipuçlarıyla ayırt edebilirim?</span></span></td><td class="posters topic-posters"><a href="#"><span class="avatar" style="background:#3A8A46;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">ZT</span></a></td><td class="num posts-map posts"><span class="badge-posts">5</span> cevap</td><td class="num views"><span>128</span></td><td class="num age">34d</td></tr><tr class="topic-list-item category-kimya"><td class="main-link"><span class="link-top-line"><a class="title raw-link raw-topic-link" href="#">Basınç arttığında erime sıcaklığı neden çoğu maddede artar?</a></span><span class="link-bottom-line"><span class="badge-category__wrapper" style="--category-badge-color:#0E8F80"><span class="badge-category" style="color:#0E8F80"><span class="badge-category__name">Kimya</span></span></span><a class="discourse-tag" href="#">9-sinif</a><span class="topic-excerpt">Ders kitabında su için tersini söylüyor. Genel kural ile suyun farkını nasıl açıklarım?</span></span></td><td class="posters topic-posters"><a href="#"><span class="avatar" style="background:#A26414;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">FA</span></a><a href="#"><span class="avatar" style="background:#1D5BD6;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">HD</span></a></td><td class="num posts-map posts"><span class="badge-posts">2</span> cevap</td><td class="num views"><span>128</span></td><td class="num age">1g</td></tr><tr class="topic-list-item category-turkce"><td class="main-link"><span class="link-top-line"><a class="title raw-link raw-topic-link" href="#">&quot;de/da&quot; ekinin ayrı yazılması gerektiğini en hızlı hangi yöntemle anlarım?</a></span><span class="link-bottom-line"><span class="badge-category__wrapper" style="--category-badge-color:#D14A2B"><span class="badge-category" style="color:#D14A2B"><span class="badge-category__name">Türkçe</span></span></span><a class="discourse-tag" href="#">tyt</a></span></td><td class="posters topic-posters"><a href="#"><span class="avatar" style="background:#D14A2B;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">İY</span></a></td><td class="num posts-map posts"><span class="badge-posts">0</span> cevap</td><td class="num views"><span>128</span></td><td class="num age">1g</td></tr><tr class="topic-list-item category-tarih"><td class="main-link"><span class="link-top-line"><a class="title raw-link raw-topic-link" href="#">Amasya Genelgesi'ne giden süreçte hangi gelişmeler yaşandı?</a></span><span class="link-bottom-line"><span class="badge-category__wrapper" style="--category-badge-color:#A26414"><span class="badge-category" style="color:#A26414"><span class="badge-category__name">Tarih</span></span></span><a class="discourse-tag" href="#">tyt</a><span class="topic-excerpt">Kronolojik sıralamasını çıkarmakta zorlanıyorum, hangi olaylar arasında bağ var?</span></span></td><td class="posters topic-posters"><a href="#"><span class="avatar" style="background:#B0398E;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">CA</span></a><a href="#"><span class="avatar" style="background:#1D5BD6;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">MU</span></a></td><td class="num posts-map posts"><span class="badge-posts">3</span> cevap</td><td class="num views"><span>128</span></td><td class="num age">3s</td></tr></tbody>
+    </table>
+  </div>
+
+  <h2 class="sk-sec">2. Soru sayfası — En İyi Cevap, adım adım çözüm, formül bloğu</h2>
+  <div class="sk-main">
+    <div id="topic-title"><h1 class="fancy-title">∫ x² · ln x dx integralini kısmi integrasyonla adım adım nasıl çözerim?</h1></div>
+    <div class="topic-map"><span style="padding:8px 12px;display:inline-block;color:#4C5C77">128 görüntülenme · 3 cevap · 12 saat önce</span></div>
+    <article class="boxed onscreen-post accepted-answer" style="margin-top:14px">
+      <div class="topic-body"><div class="regular contents"><div class="cooked">
+        <p>Evet, doğru düşünüyorsun. <strong>LIATE</strong> sıralamasına göre logaritmik fonksiyon cebirsel fonksiyonlardan önce gelir; burada <em>u = ln x</em> seçilmeli.</p>
+        <ol>
+          <li>u ve dv seçimini yap: u = ln x, dv = x² dx. Buna göre du = (1/x) dx ve v = x³/3 olur.</li>
+          <li>Kısmi integrasyon formülüne yerleştir.</li>
+          <li>Kalan integrali sadeleştir ve doğrudan integre et.</li>
+        </ol>
+        <div class="math">∫ x² · ln x dx = (x³/3) · ln x − x³/9 + C</div>
+        <p>Sonucu türev alarak geriye doğru kontrol etmeyi unutma.</p>
+      </div></div></div>
+    </article>
+    <article class="boxed onscreen-post" style="margin-top:14px">
+      <div class="topic-body"><div class="regular contents"><div class="cooked">
+        <p>Ben de aynı soruda u'yu ters seçip karıştırmıştım. Sonuç tutarsız çıktığında ilk kontrol edilecek şey u ve dv seçimi olmalı.</p>
+      </div></div></div>
+    </article>
+  </div>
+
+  <h2 class="sk-sec">3. Benzer konular — aynı kart dili</h2>
+  <div class="sk-main">
+    <div class="more-topics__lists">
+      <table class="topic-list">
+        <thead><tr><th>Konu</th></tr></thead>
+        <tbody class="topic-list-body"><tr class="topic-list-item category-matematik"><td class="main-link"><span class="link-top-line"><a class="title raw-link raw-topic-link" href="#">Belirli integralde alan hesabı hangi adımlarla yapılır?</a></span><span class="link-bottom-line"><span class="badge-category__wrapper" style="--category-badge-color:#1D5BD6"><span class="badge-category" style="color:#1D5BD6"><span class="badge-category__name">Matematik</span></span></span><a class="discourse-tag" href="#">ayt</a></span></td><td class="posters topic-posters"><a href="#"><span class="avatar" style="background:#1D5BD6;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">AY</span></a></td><td class="num posts-map posts"><span class="badge-posts">3</span> cevap</td><td class="num views"><span>128</span></td><td class="num age">5s</td></tr><tr class="topic-list-item category-fizik"><td class="main-link"><span class="link-top-line"><a class="title raw-link raw-topic-link" href="#">Hareket problemlerinde integral ne zaman kullanılır?</a></span><span class="link-bottom-line"><span class="badge-category__wrapper" style="--category-badge-color:#6D3AD6"><span class="badge-category" style="color:#6D3AD6"><span class="badge-category__name">Fizik</span></span></span><a class="discourse-tag" href="#">ayt</a></span></td><td class="posters topic-posters"><a href="#"><span class="avatar" style="background:#6D3AD6;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">OT</span></a></td><td class="num posts-map posts"><span class="badge-posts">0</span> cevap</td><td class="num views"><span>128</span></td><td class="num age">2g</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

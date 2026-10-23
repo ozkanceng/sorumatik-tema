@@ -1,0 +1,39 @@
+name: SCSS derleme kontrolü
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  derle:
+    name: Tüm SCSS dosyalarını dart-sass ile derle
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Sass kur
+        run: npm install -g sass
+
+      - name: Derle
+        run: |
+          set -e
+          mkdir -p .build
+          hata=0
+          for f in common/*.scss desktop/*.scss mobile/*.scss; do
+            echo "Derleniyor: $f"
+            hedef=".build/$(echo "$f" | tr '/' '_').css"
+            if ! sass --no-source-map "$f" "$hedef"; then
+              hata=1
+            fi
+          done
+          if [ "$hata" -ne 0 ]; then
+            echo "Bazı dosyalar derlenemedi!"
+            exit 1
+          fi
+          echo "Tüm SCSS dosyaları hatasız derlendi."

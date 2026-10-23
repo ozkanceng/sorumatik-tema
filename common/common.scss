@@ -1,0 +1,152 @@
+// =========================================================================
+// Sorumatik Tema — Ortak stiller
+// Tasarım tokenları, Discourse yüzey bağları, tipografi, butonlar, rozetler
+// Yalnızca CSS/SCSS içerir; JavaScript yüklemez.
+// Değerler "Sorumatik Tasarım Geliştirme Planı" (v1.0, Ekim 2026) ile uyumludur.
+// =========================================================================
+
+:root {
+  // ---- Metin renkleri ----
+  --sk-ink: #17253F;        // ana metin: koyu lacivert
+  --sk-ink-soft: #4C5C77;   // ikincil metin
+  --sk-ink-faint: #76839B;  // yardımcı metin
+
+  // ---- Yüzeyler ----
+  --sk-bg: #F4F7FB;         // sayfa zemini
+  --sk-card: #FFFFFF;       // kart ve panel yüzeyi
+  --sk-line: #E2E9F2;       // kenarlık
+  --sk-line-strong: #C9D5E5;
+
+  // ---- Marka ----
+  --sk-brand: #1D5BD6;
+  --sk-brand-dark: #1647A8;
+  --sk-brand-tint: #EAF1FC;
+  --sk-focus: #7FA6EE;      // klavye odak halkası
+
+  // ---- Durum renkleri ----
+  --sk-green: #157A45;      // çözüldü / en iyi cevap
+  --sk-green-tint: #E7F6EC;
+  --sk-green-line: #BFE3CC;
+  --sk-amber: #96590A;      // cevap bekliyor (metin)
+  --sk-amber-tint: #FDF2DD;
+
+  // ---- Biçim ----
+  --sk-radius: 14px;        // kart ve panel yarıçapı
+  --sk-radius-sm: 9px;      // buton ve çip yarıçapı
+  --sk-shadow: 0 1px 2px rgba(23, 37, 63, 0.05), 0 8px 22px -10px rgba(23, 37, 63, 0.10);
+  --sk-shadow-hover: 0 2px 4px rgba(23, 37, 63, 0.06), 0 14px 30px -12px rgba(29, 91, 214, 0.18);
+
+  // ---- Ders (kategori) renkleri ----
+  // topic-list.scss içinde kategori slug'ına bağlanır; kendi slug'larınıza
+  // göre düzenlemek için README > "Kategori renk eşlemesi" bölümüne bakın.
+  --sk-d-matematik: #1D5BD6;
+  --sk-d-fizik: #6D3AD6;
+  --sk-d-kimya: #0E8F80;
+  --sk-d-biyoloji: #3A8A46;
+  --sk-d-turkce: #D14A2B;
+  --sk-d-tarih: #A26414;
+  --sk-d-cografya: #0E7490;
+  --sk-d-ingilizce: #B0398E;
+}
+
+// ---- Sayfa zemini ----
+html {
+  background-color: var(--sk-bg);
+}
+
+// ---- Temel tipografi ----
+body {
+  color: var(--sk-ink);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+// Soru ve cevap gövde metinleri (plan: 17px / 1.68 satır yüksekliği)
+.cooked {
+  color: var(--sk-ink);
+  font-size: 17px;
+  line-height: 1.68;
+
+  p {
+    margin-bottom: 14px;
+  }
+}
+
+// Konu (soru) başlığı
+#topic-title .fancy-title {
+  color: var(--sk-ink);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  line-height: 1.3;
+}
+
+// ---- Üst çubuk ----
+.d-header {
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--sk-line);
+  box-shadow: none;
+}
+
+// ---- Butonlar ----
+.btn {
+  border-radius: var(--sk-radius-sm);
+}
+
+.btn-primary {
+  background: var(--sk-brand);
+
+  &:hover,
+  &:focus {
+    background: var(--sk-brand-dark);
+  }
+}
+
+// ---- Klavye odak halkası (erişilebilirlik) ----
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  border-radius: 4px;
+  outline: 3px solid var(--sk-focus);
+  outline-offset: 2px;
+}
+
+// ---- Kategori rozetleri: yumuşak renkli çip ----
+// Discourse, kategori rengini --category-badge-color olarak aktarır.
+.badge-category__wrapper .badge-category {
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 3px 10px;
+}
+
+// ---- Etiket (tag) çipleri ----
+.discourse-tag {
+  background: var(--sk-card);
+  border: 1px solid var(--sk-line);
+  border-radius: 999px;
+  color: var(--sk-ink-soft);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 3px 10px;
+
+  &:hover {
+    border-color: var(--sk-brand);
+    color: var(--sk-brand);
+    text-decoration: none;
+  }
+}
+
+// ---- Hareket tercihi: azalt ----
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

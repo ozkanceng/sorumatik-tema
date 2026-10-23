@@ -1,0 +1,23 @@
+// =========================================================================
+// Sorumatik Tema — Mobil ince ayarları (≤700px)
+// Plan 5.3: tek kolon, sıkı boşluk, ekrana daha çok soru
+// =========================================================================
+
+.topic-list-body {
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+.topic-list-item {
+  padding: 14px 14px 8px;
+
+  // Telefonda özet gizlenir: başlık + durum yeterli karar verir.
+  // Görmek isterseniz bu bloğu silin.
+  .topic-excerpt {
+    display: none;
+  }
+
+  .main-link .title {
+    font-size: 16px;
+  }
+}

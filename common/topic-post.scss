@@ -1,0 +1,89 @@
+// =========================================================================
+// Sorumatik Tema — Soru (konu) sayfası
+// "Önce çözüm" ilkesi: En İyi Cevap görsel olarak en güçlü bloktur.
+// discourse-solved eklentisinin kurulu olması önerilir.
+// =========================================================================
+
+// ---- Konu haritası (cevap, görüntülenme, kullanıcı özeti) ----
+.topic-map {
+  background: var(--sk-card);
+  border: 1.5px solid var(--sk-line);
+  border-radius: var(--sk-radius);
+  box-shadow: var(--sk-shadow);
+}
+
+// ---- En İyi Cevap: yeşil sol şerit + beyaz kart ----
+// discourse-solved, kabul edilen cevabın article'ına accepted-answer sınıfı ekler.
+article.accepted-answer .topic-body {
+  background: var(--sk-card);
+  box-shadow: inset 4px 0 0 var(--sk-green);
+}
+
+// ---- Adım adım çözüm: sıralı listeler numaralı adım bileşenine dönüşür ----
+// Cevap yazarken numaralı liste kullanıldığında otomatik uygulanır.
+.cooked ol {
+  counter-reset: sk-adim;
+  list-style: none;
+  margin: 16px 0;
+  padding-left: 0;
+}
+
+.cooked ol > li {
+  counter-increment: sk-adim;
+  margin-bottom: 12px;
+  padding-left: 40px;
+  position: relative;
+}
+
+.cooked ol > li::before {
+  align-items: center;
+  background: var(--sk-brand-tint);
+  border-radius: 8px;
+  color: var(--sk-brand);
+  content: counter(sk-adim);
+  display: inline-flex;
+  font-size: 13.5px;
+  font-weight: 700;
+  height: 26px;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 1px;
+  width: 26px;
+}
+
+// ---- Formül blokları (discourse-math / MathJax çıktıları) ----
+.cooked .math,
+.cooked .katex-display {
+  background: var(--sk-bg);
+  border: 1px solid var(--sk-line);
+  border-radius: 10px;
+  margin: 14px 0;
+  overflow-x: auto;
+  padding: 12px 16px;
+}
+
+// ---- Alıntılar ve kod blokları: kart diliyle uyum ----
+.cooked blockquote {
+  background: var(--sk-bg);
+  border-left: 4px solid var(--sk-line-strong);
+  border-radius: var(--sk-radius-sm);
+}
+
+.cooked pre {
+  border: 1px solid var(--sk-line);
+  border-radius: var(--sk-radius-sm);
+}
+
+// ---- Cevap yazma alanı ----
+.d-editor-textarea-wrapper,
+.d-editor-container .d-editor-input {
+  border-radius: var(--sk-radius-sm);
+}
+
+// ---- Sayfa altındaki "Benzer konular" başlığı ----
+.more-topics__title,
+.suggested-topics .suggested-topics-title {
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}

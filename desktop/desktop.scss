@@ -1,0 +1,19 @@
+// =========================================================================
+// Sorumatik Tema — Masaüstü (geniş ekran) ince ayarları
+// =========================================================================
+
+// İçerik sütununu planın 1110px hedefine oturt ve ortala
+#main-outlet {
+  margin-inline: auto;
+  max-width: 1110px;
+}
+
+// Liste üstü filtre çubuğu ile ızgara arasına nefes payı
+.list-controls {
+  margin-bottom: 18px;
+}
+
+// Yapışkan üst çubuk gölgesiz, çizgili kalsın (plan 5.1)
+.d-header-wrap .d-header {
+  box-shadow: none;
+}
