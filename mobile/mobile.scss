@@ -10,16 +10,90 @@ $sk_mobil_ozet: false !default;
 
 .topic-list tbody,
 .topic-list .topic-list-body {
-  gap: 12px;
-  grid-template-columns: 1fr !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
 }
 
+// Mobil Kart Düzeni
+.mobile-view .topic-list-item,
+.mobile-device .topic-list-item,
 .topic-list-item {
+  display: block !important;
   padding: 16px 14px 12px !important;
+  position: relative !important;
+  border-radius: var(--sk-radius, 16px) !important;
+  background: var(--sk-card, #FFFFFF) !important;
+  border: 1.5px solid var(--sk-line, #E2E8F0) !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+
+  .topic-list-data {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: flex-start !important;
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    width: 100% !important;
+  }
+
+  .pull-left {
+    flex-shrink: 0 !important;
+    .avatar {
+      width: 36px !important;
+      height: 36px !important;
+      border-radius: 50% !important;
+    }
+  }
+
+  .topic-item-metadata {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
 
   .main-link .title,
   .main-link .raw-topic-link {
-    font-size: 16px !important;
+    font-size: 15.5px !important;
+    font-weight: 750 !important;
+    line-height: 1.38 !important;
+    color: var(--sk-ink, #0F172A) !important;
+    padding-right: 40px !important;
+  }
+
+  .topic-item-stats {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-top: 8px !important;
+    padding-top: 8px !important;
+    border-top: 1px solid var(--sk-line, #F1F5F9) !important;
+  }
+
+  .topic-item-stats__category-tags {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .pull-right {
+    position: absolute !important;
+    right: 14px !important;
+    top: 14px !important;
+
+    .posts-map .badge-posts {
+      background: var(--sk-brand-tint, #EFF6FF) !important;
+      color: var(--sk-brand, #2563EB) !important;
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      padding: 3px 8px !important;
+      border-radius: 999px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      text-decoration: none !important;
+    }
   }
 }
 

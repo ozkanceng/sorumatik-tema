@@ -193,41 +193,44 @@ textarea:focus-visible {
   }
 
   // Kart Anatomisi — 2026 Mockup Standardı
+  table.topic-list tr.topic-list-item,
+  .topic-list tbody .topic-list-item,
+  .topic-list .topic-list-body .topic-list-item,
   .topic-list-item {
-    background: var(--sk-card);
-    border: 1.5px solid var(--sk-line);
-    border-radius: var(--sk-radius);
-    box-shadow: var(--sk-shadow);
+    background: var(--sk-card) !important;
+    border: 1.5px solid var(--sk-line) !important;
+    border-radius: var(--sk-radius) !important;
+    box-shadow: var(--sk-shadow) !important;
     display: grid !important;
     grid-template-columns: 1fr auto !important;
     grid-template-rows: auto auto !important;
     gap: 12px 0 !important;
-    padding: 20px 20px 16px;
-    position: relative;
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
+    padding: 20px 20px 16px !important;
+    position: relative !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
     transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
                 box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+                transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 
     // Sol 4.5px ders renk şeridi
     &::before {
-      background: var(--category-badge-color, var(--sk-brand));
-      bottom: 0;
-      content: "";
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 4.5px;
-      transition: width 0.18s ease;
+      background: var(--category-badge-color, var(--sk-brand)) !important;
+      bottom: 0 !important;
+      content: "" !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 4.5px !important;
+      transition: width 0.18s ease !important;
     }
 
     &:hover {
-      border-color: var(--sk-brand-line);
-      box-shadow: var(--sk-shadow-hover);
+      border-color: var(--sk-brand-line) !important;
+      box-shadow: var(--sk-shadow-hover) !important;
       &::before {
-        width: 6px;
+        width: 6px !important;
       }
     }
   }
